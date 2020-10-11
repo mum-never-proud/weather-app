@@ -5,6 +5,7 @@
     },
     "extends": [
         "plugin:react/recommended",
+        "plugin:jest/recommended",
         "airbnb"
     ],
     "parserOptions": {
@@ -15,8 +16,14 @@
         "sourceType": "module"
     },
     "plugins": [
-        "react"
+        "react",
+        "jest"
     ],
     "rules": {
+    },
+    "settings": {
+        "import/resolver": {
+            "babel-module": {}
+        }
     }
 }

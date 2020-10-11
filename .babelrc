@@ -5,7 +5,10 @@
   ],
   "plugins": [
     ["babel-plugin-module-resolver", {
-      "@": "./src"
+      "root": ["./src"],
+      "alias": {
+        "@": "./src"
+      }
     }],
     "babel-plugin-transform-async-to-promises"
   ]
