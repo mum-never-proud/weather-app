@@ -12,6 +12,7 @@
         "@action-creators": "./src/action-creators",
         "@action-types": "./src/action-types",
         "@common": "./src/components/common",
+        "@constants": "./src/constants",
         "@providers": "./src/providers",
         "@components": "./src/components",
         "@reducers": "./src/reducers",

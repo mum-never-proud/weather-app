@@ -43,7 +43,7 @@ module.exports = (mode) => ({
     ],
   },
   resolve: {
-    extensions: ['.js', '.jsx'],
+    extensions: ['.js', '.jsx', '.json'],
   },
   plugins: [
     isProductionMode(mode) ? new CleanWebpackPlugin() : () => {},
