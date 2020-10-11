@@ -7,7 +7,9 @@
     ["babel-plugin-module-resolver", {
       "root": ["./src"],
       "alias": {
-        "@": "./src"
+        "@": "./src",
+        "@services": "./src/services",
+        "@mocks": "./__mocks__"
       }
     }],
     "babel-plugin-transform-async-to-promises"

@@ -1,0 +1,41 @@
+{
+  "request":{
+     "type":"City",
+     "query":"Chennai, India",
+     "language":"en",
+     "unit":"m"
+  },
+  "location":{
+     "name":"Chennai",
+     "country":"India",
+     "region":"Tamil Nadu",
+     "lat":"13.083",
+     "lon":"80.283",
+     "timezone_id":"Asia\/Kolkata",
+     "localtime":"2020-10-11 11:24",
+     "localtime_epoch":1602415440,
+     "utc_offset":"5.50"
+  },
+  "current":{
+     "observation_time":"05:54 AM",
+     "temperature":30,
+     "weather_code":116,
+     "weather_icons":[
+        "https:\/\/assets.weatherstack.com\/images\/wsymbols01_png_64\/wsymbol_0002_sunny_intervals.png"
+     ],
+     "weather_descriptions":[
+        "Partly cloudy"
+     ],
+     "wind_speed":17,
+     "wind_degree":290,
+     "wind_dir":"WNW",
+     "pressure":1007,
+     "precip":0.9,
+     "humidity":70,
+     "cloudcover":75,
+     "feelslike":37,
+     "uv_index":6,
+     "visibility":6,
+     "is_day":"yes"
+  }
+}
