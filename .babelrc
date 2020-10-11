@@ -8,6 +8,8 @@
       "root": ["./src"],
       "alias": {
         "@": "./src",
+        "@common": "./src/components/common",
+        "@components": "./src/components",
         "@services": "./src/services",
         "@mocks": "./__mocks__"
       }
