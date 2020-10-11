@@ -1,0 +1,66 @@
+{
+  "name": "weather-app",
+  "version": "1.0.0",
+  "description": "Weather App in React",
+  "scripts": {
+    "build": "webpack --mode=production",
+    "dev": "webpack-dev-server --mode=development",
+    "css-lint": "stylelint './src/**/*.css'",
+    "js-lint": "eslint './src/**' --ext .js --ext .jsx",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mum-never-proud/weather-app.git"
+  },
+  "keywords": [
+    "weather",
+    "app",
+    "react",
+    "context",
+    "api"
+  ],
+  "author": "mum-never-proud",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mum-never-proud/weather-app/issues"
+  },
+  "homepage": "https://github.com/mum-never-proud/weather-app#readme",
+  "devDependencies": {
+    "@babel/core": "7.11.6",
+    "@babel/preset-env": "7.11.5",
+    "@babel/preset-react": "7.10.4",
+    "@testing-library/jest-dom": "5.11.4",
+    "@testing-library/react": "11.0.4",
+    "babel-loader": "8.1.0",
+    "babel-plugin-module-resolver": "4.0.0",
+    "babel-plugin-transform-async-to-promises": "0.8.15",
+    "clean-webpack-plugin": "3.0.0",
+    "css-loader": "4.3.0",
+    "dotenv-webpack": "3.0.0",
+    "eslint": "7.11.0",
+    "eslint-config-airbnb": "18.2.0",
+    "eslint-plugin-import": "2.22.1",
+    "eslint-plugin-jsx-a11y": "6.3.1",
+    "eslint-plugin-react": "7.21.4",
+    "eslint-plugin-react-hooks": "4.1.2",
+    "file-loader": "6.1.1",
+    "html-loader": "1.3.2",
+    "html-webpack-plugin": "4.5.0",
+    "jest": "26.5.2",
+    "netlify-cli": "2.65.1",
+    "stylelint": "13.7.2",
+    "stylelint-config-standard": "20.0.0",
+    "webpack": "4.44.2",
+    "webpack-cli": "3.3.12",
+    "webpack-dev-server": "3.11.0"
+  },
+  "dependencies": {
+    "path": "0.12.7",
+    "prop-types": "15.7.2",
+    "react": "16.13.1",
+    "react-dom": "16.13.1",
+    "react-router-dom": "5.2.0",
+    "shortid": "2.2.15"
+  }
+}
