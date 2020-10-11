@@ -8,8 +8,13 @@
       "root": ["./src"],
       "alias": {
         "@": "./src",
+        "@actions": "./src/actions",
+        "@action-creators": "./src/action-creators",
+        "@action-types": "./src/action-types",
         "@common": "./src/components/common",
+        "@providers": "./src/providers",
         "@components": "./src/components",
+        "@reducers": "./src/reducers",
         "@services": "./src/services",
         "@mocks": "./__mocks__"
       }
