@@ -6,7 +6,6 @@ import { fetchCurrentWeather } from '@actions/user';
 import { fetchCurrentWeatherByCoords } from '@services/weather';
 import React, { useContext, useEffect } from 'react';
 import Forecast from '@components/Forecast';
-import Footer from '@common/Footer';
 import Header from '@common/Header';
 import Home from '@components/Home';
 import cities from '@constants/cities.json';
@@ -46,7 +45,6 @@ const App = () => {
           </Route>
         </Switch>
       </div>
-      <Footer />
     </Router>
   );
 };

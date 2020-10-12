@@ -48,8 +48,7 @@ const Home = () => {
   const [state] = useContext(UserContext);
 
   return (
-    <div>
-      Home
+    <div className="mt-1">
       <WeatherGroup reports={re} />
     </div>
   );

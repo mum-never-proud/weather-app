@@ -1,0 +1,10 @@
+@media (max-width: 767px) {
+  .search-place {
+    width: 100% !important;
+  }
+}
+
+.search-place {
+  width: 50%;
+  box-shadow: var(--primary-weather-card-shadow);
+}

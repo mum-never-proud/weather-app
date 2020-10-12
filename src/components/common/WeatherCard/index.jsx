@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import CommentForm from '@components/common/CommentForm';
 import './style.scss';
 
-const WeatherCard = ({ report }) => {
+const WeatherCard = ({ report, showComments }) => {
   const commentSubmitHandler = () => {};
 
   return (
@@ -37,11 +37,16 @@ const WeatherCard = ({ report }) => {
           <sup className="weather-card--unit">&deg;F</sup>
         </div>
       </div>
-      <CommentForm onSubmit={commentSubmitHandler} />
+      {
+        showComments && <CommentForm onSubmit={commentSubmitHandler} />
+      }
     </div>
   );
 };
 
+WeatherCard.defaultProps = {
+  showComments: false,
+};
 WeatherCard.propTypes = {
   report: PropTypes.shape({
     name: PropTypes.string.isRequired,
@@ -60,6 +65,7 @@ WeatherCard.propTypes = {
       humidity: PropTypes.number.isRequired,
     }).isRequired,
   }).isRequired,
+  showComments: PropTypes.bool,
 };
 
 export default WeatherCard;
