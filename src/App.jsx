@@ -3,14 +3,12 @@ import {
 } from 'react-router-dom';
 import { UserContext } from '@providers/User';
 import { fetchCurrentWeather } from '@actions/user';
-import { fetchCurrentWeatherByCoords } from '@services/weather';
 import React, { useContext, useEffect } from 'react';
 import Forecast from '@components/Forecast';
 import Header from '@common/Header';
 import Home from '@components/Home';
 import cities from '@constants/cities.json';
 import dbInstance from '@services/db';
-import getUserLocation from '@services/location';
 import '@styles';
 
 const App = () => {
@@ -25,11 +23,7 @@ const App = () => {
       db.commit(meta);
     };
 
-    // getUserLocation()
-    //   .then(({ coords }) => fetchCurrentWeatherByCoords(coords.latitude, coords.longitude));
-
     // fetchCurrentWeather(cities)(dispatch);
-
     updateMeta();
   }, []);
 

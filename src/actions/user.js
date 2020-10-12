@@ -1,7 +1,10 @@
 import {
   fetchCurrentWeatherRequest, fetchCurrentWeatherSuccess, fetchCurrentWeatherFailure,
+  fetchCurrentLocationWeatherRequest, fetchCurrentLocationWeatherSuccess,
+  fetchCurrentLocationWeatherFailure,
 } from '@action-creators/user';
-import { fetchCurrentWeatherById } from '@services/weather';
+import { fetchCurrentWeatherById, fetchCurrentWeatherByCoords } from '@services/weather';
+import accessLocation from '@services/location';
 import dbInstance from '@services/db';
 
 export const fetchCurrentWeather = (places) => async (dispatch) => {
@@ -35,6 +38,19 @@ export const fetchCurrentWeather = (places) => async (dispatch) => {
   }
 };
 
-export const fetchCurrentLocationWeather = (coords) => async (dispatch) => {};
+export const fetchCurrentLocationWeather = () => async (dispatch) => {
+  dispatch(fetchCurrentLocationWeatherRequest());
+
+  try {
+    const location = await accessLocation();
+    const { coords } = location;
+    const res = await fetchCurrentWeatherByCoords(coords.latitude, coords.longitude);
+    const report = await res.json();
+
+    dispatch(fetchCurrentLocationWeatherSuccess(report));
+  } catch (ex) {
+    dispatch(fetchCurrentLocationWeatherFailure(ex.message));
+  }
+};
 
 export const updateFavorites = () => {};

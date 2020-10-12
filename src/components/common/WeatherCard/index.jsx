@@ -34,7 +34,7 @@ const WeatherCard = ({ report, showComments }) => {
         </div>
         <div className="weather-card--temp">
           {report.main.temp}
-          <sup className="weather-card--unit">&deg;F</sup>
+          <sup className="weather-card--unit">&deg;C</sup>
         </div>
       </div>
       {
