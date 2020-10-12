@@ -1,0 +1,15 @@
+button.primary {
+  padding: 5px 15px;
+  color: $cascading-white;
+  background-color: $organza-violet;
+  transition: 0.5s linear;
+}
+
+button.primary:not(:disabled):hover {
+  background-color: $moody-blue;
+}
+
+button:disabled, button:disabled:hover {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
