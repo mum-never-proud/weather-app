@@ -1,5 +1,11 @@
 @import "_variables.scss";
 
+@media (max-width: 767px) {
+  .weather-card--temp {
+    font-size: 40px !important;
+  }
+}
+
 .weather-card {
   color: $cascading-white;
   background-color: $black-russian;

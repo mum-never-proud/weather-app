@@ -1,10 +1,12 @@
 import { FiCloud } from 'react-icons/fi';
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import CommentForm from '@components/common/CommentForm';
 import './style.scss';
 
 const WeatherCard = ({ report }) => {
+  const commentSubmitHandler = () => {};
+
   return (
     <div className="p-15 weather-card">
       <div>
@@ -35,7 +37,7 @@ const WeatherCard = ({ report }) => {
           <sup className="weather-card--unit">&deg;F</sup>
         </div>
       </div>
-      <CommentForm />
+      <CommentForm onSubmit={commentSubmitHandler} />
     </div>
   );
 };
