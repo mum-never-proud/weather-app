@@ -22,6 +22,10 @@ html, body {
   background-image: var(--primary-background-image-gradient);
 }
 
+p {
+  padding-bottom: 1em;
+}
+
 .container {
   padding: 0 15px 15px;
 }

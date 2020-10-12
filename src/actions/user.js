@@ -1,47 +1,52 @@
 import {
-  fetchCurrentWeatherRequest, fetchCurrentWeatherSuccess, fetchCurrentWeatherFailure,
-  fetchCurrentLocationWeatherRequest, fetchCurrentLocationWeatherSuccess,
-  fetchCurrentLocationWeatherFailure,
+  fetchWeatherRequest, fetchWeatherSuccess, fetchWeatherFailure,
+  fetchGeoWeatherRequest, fetchGeoWeatherSuccess, fetchGeoWeatherFailure,
   addToFavouritesRequest, addToFavouritesSuccess, addToFavouritesFailure,
+  removeFromFavouritesRequest, removeFromFavouritesSuccess, removeFromFavouritesFailure,
 } from '@action-creators/user';
 import { fetchCurrentWeatherById, fetchCurrentWeatherByCoords } from '@services/weather';
 import accessLocation from '@services/location';
 import dbInstance from '@services/db';
 
 export const fetchCurrentWeather = (places) => async (dispatch) => {
-  dispatch(fetchCurrentWeatherRequest());
+  dispatch(fetchWeatherRequest());
 
   try {
     const db = await dbInstance;
-    const favorites = db.table('favorites').findAll();
-    const favoritesIds = favorites.map((favorite) => favorite.cityId);
-    const cityIds = places.map((place) => place.cityId).concat(favoritesIds);
+    const favoriteCities = db.table('favourite_cities').findAll();
+    const favoriteCitiesIds = favoriteCities.map((favorite) => favorite.cityId);
+    const cityIds = places.map((place) => place.cityId).concat(favoriteCitiesIds);
+
+    if (!cityIds.length && !favoriteCities.length) {
+      dispatch(fetchWeatherSuccess(places));
+      return;
+    }
+
     const res = await fetchCurrentWeatherById(cityIds);
     const reports = await res.json();
 
     if (reports.cod) {
-      dispatch(fetchCurrentWeatherFailure([reports.message]));
+      dispatch(fetchWeatherFailure([reports.message]));
     } else {
-      const payload = { favorites: [], default: [] };
+      const payload = { favoriteCities: [], defaultCities: [] };
 
-      console.log(favoritesIds);
       reports.list.forEach((report) => {
-        if (favoritesIds.includes(report.id)) {
-          payload.favorites.push(report);
+        if (favoriteCitiesIds.includes(report.id)) {
+          payload.favoriteCities.push(report);
         } else {
-          payload.default.push(report);
+          payload.defaultCities.push(report);
         }
       });
 
-      dispatch(fetchCurrentWeatherSuccess(payload));
+      dispatch(fetchWeatherSuccess(payload));
     }
   } catch (ex) {
-    dispatch(fetchCurrentWeatherFailure([ex.message]));
+    dispatch(fetchWeatherFailure([ex.message]));
   }
 };
 
 export const fetchCurrentLocationWeather = () => async (dispatch) => {
-  dispatch(fetchCurrentLocationWeatherRequest());
+  dispatch(fetchGeoWeatherRequest());
 
   try {
     const location = await accessLocation();
@@ -49,29 +54,45 @@ export const fetchCurrentLocationWeather = () => async (dispatch) => {
     const res = await fetchCurrentWeatherByCoords(coords.latitude, coords.longitude);
     const report = await res.json();
 
-    dispatch(fetchCurrentLocationWeatherSuccess(report));
+    dispatch(fetchGeoWeatherSuccess(report));
   } catch (ex) {
-    dispatch(fetchCurrentLocationWeatherFailure(ex.message));
+    dispatch(fetchGeoWeatherFailure(ex.message));
   }
 };
 
 export const addToFavourites = (payload) => async (dispatch) => {
   dispatch(addToFavouritesRequest());
-  console.log(payload);
-
 
   try {
     const db = await dbInstance;
-    const favorites = db.table('favorites');
+    const defaultCities = db.table('default_cities');
+    const favoriteCities = db.table('favourite_cities');
 
-    favorites.insert({ name: payload.name, cityId: payload.id, isFavorited: true });
-    await db.commit(favorites);
+    defaultCities.deleteBy({ cityId: payload.id });
+    favoriteCities.insert({ name: payload.name, cityId: payload.id });
 
-    console.log(payload);
+    await db.commit(favoriteCities);
+    await db.commit(defaultCities);
 
     dispatch(addToFavouritesSuccess(payload));
   } catch (ex) {
-    console.log(ex);
     dispatch(addToFavouritesFailure(ex.message));
+  }
+};
+
+export const removeFromFavourites = (payload) => async (dispatch) => {
+  dispatch(removeFromFavouritesRequest());
+
+  try {
+    const db = await dbInstance;
+    const favoriteCities = db.table('favourite_cities');
+
+    favoriteCities.deleteBy({ cityId: payload.id });
+
+    await db.commit(favoriteCities);
+
+    dispatch(removeFromFavouritesSuccess(payload.id));
+  } catch (ex) {
+    dispatch(removeFromFavouritesFailure(ex.message));
   }
 };

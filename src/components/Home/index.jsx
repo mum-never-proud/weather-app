@@ -3,12 +3,26 @@ import React, { useContext } from 'react';
 import WeatherGroup from '@components/common/WeatherGroup';
 
 const Home = () => {
-  const [{ default: defaultReports, favorites }] = useContext(UserContext);
+  const [{ defaultCities, favoriteCities }] = useContext(UserContext);
 
   return (
     <div className="mt-1">
-      <WeatherGroup reports={favorites} />
-      <WeatherGroup reports={defaultReports} />
+      {
+        favoriteCities.length > 0 && (
+          <div className="mt-1">
+            <p>Favorite Cities</p>
+            <WeatherGroup reports={favoriteCities} isFavorite />
+          </div>
+        )
+      }
+      {
+        defaultCities.length > 0 && (
+          <div className="mt-1">
+            <p>Default Cities</p>
+            <WeatherGroup reports={defaultCities} />
+          </div>
+        )
+      }
     </div>
   );
 };

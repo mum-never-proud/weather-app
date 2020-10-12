@@ -6,7 +6,7 @@ import './style.scss';
 
 const Header = () => {
   const [{
-    currentLocationReport, geoReportError, isFetchingGeoReport,
+    currentLocationReport, geoWeatherError, isFetchingGeoWeatherReport,
   }, dispatch] = useContext(UserContext);
   const searchRef = useRef();
 
@@ -24,13 +24,13 @@ const Header = () => {
         <input className="search-place p-1" type="text" ref={searchRef} placeholder="Search for Locations" />
         <div className="header--geo-report mt-1">
           {
-            isFetchingGeoReport && <span>Fetching...</span>
+            isFetchingGeoWeatherReport && <span>Fetching...</span>
           }
           {
-            currentLocationReport && <WeatherCard report={currentLocationReport} />
+            currentLocationReport && <WeatherCard report={currentLocationReport} hideActions />
           }
           {
-            geoReportError && <span className="font-weight-bold">{geoReportError}</span>
+            geoWeatherError && <span className="font-weight-bold">{geoWeatherError}</span>
           }
         </div>
       </form>

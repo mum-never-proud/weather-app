@@ -5,6 +5,7 @@
   ],
   "plugins": [
     ["babel-plugin-module-resolver", {
+      "extensions": [".js", ".jsx", ".scss"],
       "root": ["./src"],
       "alias": {
         "@": "./src",

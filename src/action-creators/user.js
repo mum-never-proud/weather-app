@@ -1,36 +1,35 @@
 import {
-  FETCH_CURRENT_WEATHER_REQUEST, FETCH_CURRENT_WEATHER_SUCCESS, FETCH_CURRENT_WEATHER_FAILURE,
-  FETCH_CURRENT_LOCATION_WEATHER_REQUEST, FETCH_CURRENT_LOCATION_WEATHER_SUCCESS,
-  FETCH_CURRENT_LOCATION_WEATHER_FAILURE,
+  FETCH_WEATHER_REQUEST, FETCH_WEATHER_SUCCESS, FETCH_CURRENT_FAILURE,
+  FETCH_GEO_WEATHER_REQUEST, FETCH_GEO_WEATHER_SUCCESS, FETCH_GEO_WEATHER_FAILURE,
   ADD_TO_FAVOURITES_REQUEST, ADD_TO_FAVOURITES_SUCCESS, ADD_TO_FAVOURITES_FAILURE,
   REMOVE_FROM_FAVOURITES_REQUEST, REMOVE_FROM_FAVOURITES_SUCCESS, REMOVE_FROM_FAVOURITES_FAILURE,
 } from '@action-types';
 
-export const fetchCurrentWeatherRequest = () => ({
-  type: FETCH_CURRENT_WEATHER_REQUEST,
+export const fetchWeatherRequest = () => ({
+  type: FETCH_WEATHER_REQUEST,
 });
 
-export const fetchCurrentWeatherSuccess = (payload) => ({
-  type: FETCH_CURRENT_WEATHER_SUCCESS,
+export const fetchWeatherSuccess = (payload) => ({
+  type: FETCH_WEATHER_SUCCESS,
   payload,
 });
 
-export const fetchCurrentWeatherFailure = (payload) => ({
-  type: FETCH_CURRENT_WEATHER_FAILURE,
+export const fetchWeatherFailure = (payload) => ({
+  type: FETCH_CURRENT_FAILURE,
   payload,
 });
 
-export const fetchCurrentLocationWeatherRequest = () => ({
-  type: FETCH_CURRENT_LOCATION_WEATHER_REQUEST,
+export const fetchGeoWeatherRequest = () => ({
+  type: FETCH_GEO_WEATHER_REQUEST,
 });
 
-export const fetchCurrentLocationWeatherSuccess = (payload) => ({
-  type: FETCH_CURRENT_LOCATION_WEATHER_SUCCESS,
+export const fetchGeoWeatherSuccess = (payload) => ({
+  type: FETCH_GEO_WEATHER_SUCCESS,
   payload,
 });
 
-export const fetchCurrentLocationWeatherFailure = (payload) => ({
-  type: FETCH_CURRENT_LOCATION_WEATHER_FAILURE,
+export const fetchGeoWeatherFailure = (payload) => ({
+  type: FETCH_GEO_WEATHER_FAILURE,
   payload,
 });
 

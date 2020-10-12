@@ -7,7 +7,6 @@ import React, { useContext, useEffect } from 'react';
 import Forecast from '@components/Forecast';
 import Header from '@common/Header';
 import Home from '@components/Home';
-import cities from '@constants/cities.json';
 import dbInstance from '@services/db';
 import '@styles';
 
@@ -18,12 +17,23 @@ const App = () => {
     const updateMeta = async () => {
       const db = await dbInstance;
       const meta = db.table('meta');
+      const defaultCities = db.table('default_cities');
+
+      // silently update storage in background
+
+      if (!meta.size()) {
+        const { default: cities } = await import('@constants/cities.json');
+
+        defaultCities.insert(cities);
+        db.commit(defaultCities);
+      }
 
       meta.update(meta.first() || {});
       db.commit(meta);
+
+      fetchCurrentWeather(defaultCities.findAll())(dispatch);
     };
 
-    fetchCurrentWeather(cities)(dispatch);
     updateMeta();
   }, []);
 

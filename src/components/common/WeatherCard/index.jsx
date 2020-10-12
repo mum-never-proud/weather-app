@@ -1,31 +1,28 @@
 import { UserContext } from '@providers/User';
-import { FiCloud, FiHeart } from 'react-icons/fi';
-import { addToFavourites } from '@actions/user';
-import React, { useContext, useEffect } from 'react';
+import { FiXCircle, FiCloud, FiHeart } from 'react-icons/fi';
+import { addToFavourites, removeFromFavourites } from '@actions/user';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import CommentForm from '@components/common/CommentForm';
 import './style.scss';
 
-const WeatherCard = ({ report, showComments }) => {
+const WeatherCard = ({
+  report, showComments, isFavorite, hideActions,
+}) => {
   const [, dispatch] = useContext(UserContext);
   const commentSubmitHandler = () => {};
 
-  useEffect(() => {
-    if (report.id === 1850147) {
-      addToFavourites(report)(dispatch);
-    }
-  }, []);
-
   return (
     <div className="p-15 weather-card">
+      <div className="text-right">
+        {!hideActions && !isFavorite && <FiXCircle size={24} />}
+      </div>
       <div>
         <p className="weather-card--location">
           {report.name}
           ,
           {' '}
           {report.sys.country}
-
-          <FiHeart />
         </p>
         <p>
           <small>{report.weather[0].main}</small>
@@ -51,12 +48,26 @@ const WeatherCard = ({ report, showComments }) => {
       {
         showComments && <CommentForm onSubmit={commentSubmitHandler} />
       }
+      {
+        !hideActions && (
+          <div className="mt-1 text-right">
+            <FiHeart
+              size={24}
+              className={`${isFavorite ? 'text-danger' : ''}`}
+              onClick={() => (isFavorite
+                ? removeFromFavourites(report)(dispatch) : addToFavourites(report)(dispatch))}
+            />
+          </div>
+        )
+      }
     </div>
   );
 };
 
 WeatherCard.defaultProps = {
   showComments: false,
+  isFavorite: false,
+  hideActions: false,
 };
 WeatherCard.propTypes = {
   report: PropTypes.shape({
@@ -76,7 +87,9 @@ WeatherCard.propTypes = {
       humidity: PropTypes.number.isRequired,
     }).isRequired,
   }).isRequired,
+  isFavorite: PropTypes.bool,
   showComments: PropTypes.bool,
+  hideActions: PropTypes.bool,
 };
 
 export default WeatherCard;

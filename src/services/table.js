@@ -71,6 +71,21 @@ class Table {
     return this[table];
   }
 
+  delete(index) {
+    delete this[table][index];
+
+    return this;
+  }
+
+  deleteBy(constraints) {
+    const fields = Object.keys(constraints);
+
+    this[table] = this[table]
+      .filter((record) => fields.every((key) => record[key] !== constraints[key]));
+
+    return this;
+  }
+
   deleteAll() {
     this[table].length = 0;
 
