@@ -1,11 +1,20 @@
-import { FiCloud } from 'react-icons/fi';
-import React from 'react';
+import { UserContext } from '@providers/User';
+import { FiCloud, FiHeart } from 'react-icons/fi';
+import { addToFavourites } from '@actions/user';
+import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import CommentForm from '@components/common/CommentForm';
 import './style.scss';
 
 const WeatherCard = ({ report, showComments }) => {
+  const [, dispatch] = useContext(UserContext);
   const commentSubmitHandler = () => {};
+
+  useEffect(() => {
+    if (report.id === 1850147) {
+      addToFavourites(report)(dispatch);
+    }
+  }, []);
 
   return (
     <div className="p-15 weather-card">
@@ -15,6 +24,8 @@ const WeatherCard = ({ report, showComments }) => {
           ,
           {' '}
           {report.sys.country}
+
+          <FiHeart />
         </p>
         <p>
           <small>{report.weather[0].main}</small>

@@ -23,7 +23,7 @@ const App = () => {
       db.commit(meta);
     };
 
-    // fetchCurrentWeather(cities)(dispatch);
+    fetchCurrentWeather(cities)(dispatch);
     updateMeta();
   }, []);
 

@@ -2,6 +2,7 @@ import {
   fetchCurrentWeatherRequest, fetchCurrentWeatherSuccess, fetchCurrentWeatherFailure,
   fetchCurrentLocationWeatherRequest, fetchCurrentLocationWeatherSuccess,
   fetchCurrentLocationWeatherFailure,
+  addToFavouritesRequest, addToFavouritesSuccess, addToFavouritesFailure,
 } from '@action-creators/user';
 import { fetchCurrentWeatherById, fetchCurrentWeatherByCoords } from '@services/weather';
 import accessLocation from '@services/location';
@@ -23,11 +24,12 @@ export const fetchCurrentWeather = (places) => async (dispatch) => {
     } else {
       const payload = { favorites: [], default: [] };
 
+      console.log(favoritesIds);
       reports.list.forEach((report) => {
-        if (cityIds.includes(report.id)) {
-          payload.default.push(report);
-        } else {
+        if (favoritesIds.includes(report.id)) {
           payload.favorites.push(report);
+        } else {
+          payload.default.push(report);
         }
       });
 
@@ -53,4 +55,23 @@ export const fetchCurrentLocationWeather = () => async (dispatch) => {
   }
 };
 
-export const updateFavorites = () => {};
+export const addToFavourites = (payload) => async (dispatch) => {
+  dispatch(addToFavouritesRequest());
+  console.log(payload);
+
+
+  try {
+    const db = await dbInstance;
+    const favorites = db.table('favorites');
+
+    favorites.insert({ name: payload.name, cityId: payload.id, isFavorited: true });
+    await db.commit(favorites);
+
+    console.log(payload);
+
+    dispatch(addToFavouritesSuccess(payload));
+  } catch (ex) {
+    console.log(ex);
+    dispatch(addToFavouritesFailure(ex.message));
+  }
+};
