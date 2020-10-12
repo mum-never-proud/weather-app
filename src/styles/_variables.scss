@@ -1,0 +1,17 @@
+// color names
+
+$black-russian: #23272A;
+$cascading-white: #f6f6f6;
+$moody-blue: #817ACF;
+$organza-violet: #7289DA;
+$organza-violet-2: #7685D8;
+$kickstart-purple: #7a82d5;
+$kickstart-purple-2: #7d7ed2;
+
+// app constants
+
+$primary-background-color: $black-russian;
+$primary-color: $cascading-white;
+$primary-weather-card-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+$primary-background-image-gradient: linear-gradient(to right top, $organza-violet, $organza-violet-2, $kickstart-purple, $kickstart-purple-2, $moody-blue);
+$primary-font-family: 'Quicksand', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;

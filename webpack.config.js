@@ -30,10 +30,18 @@ module.exports = (mode) => ({
         loader: 'babel-loader',
       },
       {
-        test: /\.css$/,
+        test: /\.s(c|a)ss/,
         use: [
           'style-loader',
           'css-loader',
+          {
+            loader: 'sass-loader',
+            options: {
+              sassOptions: {
+                includePaths: [path.resolve(__dirname, 'src', 'styles')],
+              },
+            },
+          },
         ],
       },
       {
@@ -43,7 +51,7 @@ module.exports = (mode) => ({
     ],
   },
   resolve: {
-    extensions: ['.js', '.jsx', '.json'],
+    extensions: ['.js', '.jsx', '.scss', '.json'],
   },
   plugins: [
     isProductionMode(mode) ? new CleanWebpackPlugin() : () => {},

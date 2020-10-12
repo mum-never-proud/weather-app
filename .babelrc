@@ -17,6 +17,7 @@
         "@components": "./src/components",
         "@reducers": "./src/reducers",
         "@services": "./src/services",
+        "@styles": "./src/styles",
         "@mocks": "./__mocks__"
       }
     }],

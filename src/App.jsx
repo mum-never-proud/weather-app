@@ -12,7 +12,7 @@ import Home from '@components/Home';
 import cities from '@constants/cities.json';
 import dbInstance from '@services/db';
 import getUserLocation from '@services/location';
-import '@/App.css';
+import '@styles';
 
 const App = () => {
   const [, dispatch] = useContext(UserContext);
@@ -26,10 +26,10 @@ const App = () => {
       db.commit(meta);
     };
 
-    getUserLocation()
-      .then(({ coords }) => fetchCurrentWeatherByCoords(coords.latitude, coords.longitude));
+    // getUserLocation()
+    //   .then(({ coords }) => fetchCurrentWeatherByCoords(coords.latitude, coords.longitude));
 
-    fetchCurrentWeather(cities)(dispatch);
+    // fetchCurrentWeather(cities)(dispatch);
 
     updateMeta();
   }, []);

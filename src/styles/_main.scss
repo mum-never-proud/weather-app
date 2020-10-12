@@ -1,0 +1,22 @@
+:root {
+  --primary-font-family: #{$primary-font-family};
+  --primary-background-color: #{$primary-background-color};
+  --primary-color: #{$primary-color};
+  --primary-weather-card-shadow: #{$primary-weather-card-shadow};
+  --primary-background-image-gradient: #{$primary-background-image-gradient};
+}
+
+
+@import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+html, body {
+  min-height: 100vh;
+  font-family: var(--primary-font-family);
+  background-image: var(--primary-background-image-gradient);
+}
