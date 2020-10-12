@@ -7,16 +7,20 @@
 }
 
 
-@import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap');
 
 * {
   margin: 0;
   padding: 0;
   border: 0;
+  font-family: var(--primary-font-family);
 }
 
 html, body {
   min-height: 100vh;
-  font-family: var(--primary-font-family);
   background-image: var(--primary-background-image-gradient);
+}
+
+.container {
+  padding: 0 15px;
 }

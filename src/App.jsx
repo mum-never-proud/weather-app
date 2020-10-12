@@ -36,14 +36,16 @@ const App = () => {
 
   return (
     <Router>
-      <Header />
-      <Switch>
-        <Route exact path="/" component={Home} />
-        <Route path="/forecast/:place_id" component={Forecast} />
-        <Route path="*">
-          <Redirect to="/" />
-        </Route>
-      </Switch>
+      <div className="container">
+        <Header />
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route path="/forecast/:place_id" component={Forecast} />
+          <Route path="*">
+            <Redirect to="/" />
+          </Route>
+        </Switch>
+      </div>
       <Footer />
     </Router>
   );
