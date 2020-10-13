@@ -124,11 +124,11 @@ export const addComment = (payload) => async (dispatch) => {
     const db = await dbInstance;
     const notes = db.table('notes');
 
-    const note = notes.insert({ text: payload.comment, reportId: payload.id });
+    notes.insert({ ...payload.comment, reportId: payload.id });
 
     await db.commit(notes);
 
-    dispatch(addCommentSuccess(note));
+    dispatch(addCommentSuccess(notes.findAll()));
   } catch (ex) {
     dispatch(addCommentFailure([ex.message]));
   }
@@ -139,14 +139,14 @@ export const removeComment = (payload) => async (dispatch) => {
 
   try {
     const db = await dbInstance;
-    const defaultCities = db.table(payload.isFavorite ? 'favourite_cities' : 'default_cities');
+    const notes = db.table('notes');
 
-    defaultCities.deleteBy({ cityId: payload.id });
+    notes.deleteBy({ id: payload.comment.id });
 
-    await db.commit(defaultCities);
+    await db.commit(notes);
 
-    dispatch(removeCommentSuccess(payload.id));
+    dispatch(removeCommentSuccess(notes.findAll()));
   } catch (ex) {
-    dispatch(removeCommentFailure(ex.message));
+    dispatch(removeCommentFailure([ex.message]));
   }
 };

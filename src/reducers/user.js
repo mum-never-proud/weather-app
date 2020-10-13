@@ -5,17 +5,20 @@ import {
   REMOVE_FROM_FAVOURITES_REQUEST, REMOVE_FROM_FAVOURITES_SUCCESS, REMOVE_FROM_FAVOURITES_FAILURE,
   REMOVE_FROM_DEFAULT_REQUEST, REMOVE_FROM_DEFAULT_SUCCESS, REMOVE_FROM_DEFAULT_FAILURE,
   ADD_COMMENT_REQUEST, ADD_COMMENT_SUCCESS, ADD_COMMENT_FAILURE,
+  REMOVE_COMMENT_REQUEST, REMOVE_COMMENT_SUCCESS, REMOVE_COMMENT_FAILURE,
 } from '@action-types';
 
 export const userState = {
   isFetchingWeatherReport: false,
   isFetchingGeoWeatherReport: false,
   isUpdatingStorage: false,
+  isUpdateCommentSuccessful: false,
   currentLocationReport: undefined,
   geoWeatherError: '',
   favoriteCities: [],
   defaultCities: [],
   errors: [],
+  notes: [],
 };
 
 export default function weatherReducer(state = userState, action) {
@@ -118,21 +121,27 @@ export default function weatherReducer(state = userState, action) {
         isUpdatingStorage: false,
       };
     case ADD_COMMENT_REQUEST:
+    case REMOVE_COMMENT_REQUEST:
       return {
         ...state,
+        isUpdateCommentSuccessful: false,
         isUpdatingStorage: true,
       };
-    case ADD_COMMENT_SUCCESS: {
+    case ADD_COMMENT_SUCCESS:
+    case REMOVE_COMMENT_SUCCESS:
+    {
       return {
         ...state,
         isUpdatingStorage: false,
-        isAddCommentSuccess: true,
-        notes: state.notes.concat(action.payload),
+        isUpdateCommentSuccessful: true,
+        notes: action.payload,
       };
     }
     case ADD_COMMENT_FAILURE:
+    case REMOVE_COMMENT_FAILURE:
       return {
         ...state,
+        isUpdateCommentSuccessful: false,
         isUpdatingStorage: false,
       };
     default:

@@ -3,9 +3,9 @@ import { FiXCircle, FiCloud, FiHeart } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import {
   addToFavourites, removeFromFavourites, removeFromDefault,
-  addComment,
+  addComment, removeComment,
 } from '@actions/user';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import CommentForm from '@components/common/CommentForm';
 import Note from '@components/common/Note';
@@ -17,10 +17,13 @@ const WeatherCard = ({
   const {
     isFavorite, id, main, name, sys, weather,
   } = report;
-  const [, dispatch] = useContext(UserContext);
+  const [{ isUpdateCommentSuccessful }, dispatch] = useContext(UserContext);
+  const [currentNote, setCurrentNote] = useState({ text: '' });
   const commentSubmitHandler = (comment) => {
-    addComment({ comment, id, isFavorite })(dispatch);
+    addComment({ comment, id })(dispatch);
   };
+  const commentEditHandler = (note) => setCurrentNote(note);
+  const commentDeleteHandler = (comment) => removeComment({ comment })(dispatch);
 
   return (
     <div className="p-15 weather-card">
@@ -61,12 +64,22 @@ const WeatherCard = ({
         </div>
       </div>
       {
-        showComments && <CommentForm onSubmit={commentSubmitHandler} />
+        showComments && (
+        <CommentForm
+          isSubmitted={isUpdateCommentSuccessful}
+          onSubmit={commentSubmitHandler}
+          note={currentNote}
+        />
+        )
       }
       {
         notes.length > 0 && (notes.map((note) => (
-          <div className="mt-1">
-            <Note key={note.id} note={note} />
+          <div className="mt-1" key={note.id}>
+            <Note
+              note={note}
+              onEdit={commentEditHandler}
+              onDelete={commentDeleteHandler}
+            />
           </div>
         )))
       }

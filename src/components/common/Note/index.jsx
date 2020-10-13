@@ -1,3 +1,4 @@
+import { AiOutlineDelete, AiOutlineEdit } from 'react-icons/ai';
 import React from 'react';
 import PropTypes from 'prop-types';
 import dayjs from 'dayjs';
@@ -6,8 +7,13 @@ import './style.scss';
 
 dayjs.extend(relativeTime);
 
-const Note = ({ note }) => (
+const Note = ({ note, onEdit, onDelete }) => (
   <div className="note p-15">
+    <div className="note--actions text-right">
+      <AiOutlineEdit onClick={() => onEdit(note)} />
+      {' '}
+      <AiOutlineDelete onClick={() => onDelete(note)} />
+    </div>
     <div className="note--text">
       {note.text}
       {' '}
@@ -19,12 +25,18 @@ const Note = ({ note }) => (
   </div>
 );
 
+Note.defaultProps = {
+  onEdit: () => {},
+  onDelete: () => {},
+};
 Note.propTypes = {
   note: PropTypes.shape({
     text: PropTypes.string.isRequired,
     createdAt: PropTypes.number.isRequired,
     updatedAt: PropTypes.number,
   }).isRequired,
+  onEdit: PropTypes.func,
+  onDelete: PropTypes.func,
 };
 
 export default Note;

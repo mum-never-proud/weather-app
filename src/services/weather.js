@@ -6,3 +6,5 @@ export const queryCurrentWeather = (place) => fetch(`${WEATHERSTACK_DOMAIN_NAME}
 export const fetchCurrentWeatherById = (ids) => fetch(`${WEATHERSTACK_DOMAIN_NAME}/${Array.isArray(ids) ? 'group' : 'weather'}?&id=${normalizePlaces(ids)}&appid=${WEATHERSTACK_API_KEY}&units=metric`);
 
 export const fetchCurrentWeatherByCoords = (lat, lon) => fetch(`${WEATHERSTACK_DOMAIN_NAME}/weather?lat=${lat}&lon=${lon}&appid=${WEATHERSTACK_API_KEY}&units=metric`);
+
+export const findPlace = (place) => fetch(`${WEATHERSTACK_DOMAIN_NAME}/find?q=${place}&appid=${WEATHERSTACK_API_KEY}&units=metric&type=like`);

@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 
 const MAX_CHARACTERS_ALLOWED = 140;
 
-const CommentForm = ({ onSubmit }) => {
+const CommentForm = ({ note, onSubmit, isSubmitted }) => {
   const commentRef = useRef();
   const [charactersLeft, setCharactersLeft] = useState(MAX_CHARACTERS_ALLOWED);
-  const [comment, setComment] = useState('');
+  const [comment, setComment] = useState(note);
   const submitHandler = (e) => {
     e.preventDefault();
     onSubmit(comment);
@@ -17,17 +17,29 @@ const CommentForm = ({ onSubmit }) => {
   }, []);
 
   useEffect(() => {
-    setCharactersLeft(MAX_CHARACTERS_ALLOWED - comment.length);
+    setComment(note);
+    commentRef.current.focus();
+  }, [note]);
+
+  useEffect(() => {
+    if (isSubmitted) {
+      setComment({ text: '' });
+      commentRef.current.focus();
+    }
+  }, [isSubmitted]);
+
+  useEffect(() => {
+    setCharactersLeft(MAX_CHARACTERS_ALLOWED - comment.text.length);
   }, [comment]);
 
   return (
     <form className="weather-card--form mt-2" onSubmit={submitHandler}>
       <textarea
         className="form-control resize-none p-1"
-        value={comment}
+        value={comment.text}
         rows={3}
         ref={commentRef}
-        onChange={(e) => setComment(e.target.value)}
+        onChange={(e) => setComment({ ...comment, text: e.target.value })}
       />
       <div className="mt-1 d-flex justify-content-between">
         <div>
@@ -37,7 +49,7 @@ const CommentForm = ({ onSubmit }) => {
             <span className={`font-weight-bold ${charactersLeft < 0 ? 'text-danger' : ''}`}>{charactersLeft}</span>
           </small>
         </div>
-        <button type="submit" className="primary" disabled={!comment || charactersLeft < 0}>Submit</button>
+        <button type="submit" className="primary" disabled={charactersLeft === 140 || charactersLeft < 0}>Submit</button>
       </div>
     </form>
   );
@@ -45,6 +57,10 @@ const CommentForm = ({ onSubmit }) => {
 
 CommentForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
+  note: PropTypes.shape({
+    text: PropTypes.string,
+  }).isRequired,
+  isSubmitted: PropTypes.bool.isRequired,
 };
 
 export default CommentForm;
