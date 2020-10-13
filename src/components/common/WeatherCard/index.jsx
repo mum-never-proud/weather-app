@@ -8,6 +8,7 @@ import {
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import CommentForm from '@components/common/CommentForm';
+import Note from '@components/common/Note';
 import './style.scss';
 
 const WeatherCard = ({
@@ -63,7 +64,11 @@ const WeatherCard = ({
         showComments && <CommentForm onSubmit={commentSubmitHandler} />
       }
       {
-        notes.length > 0 && (notes.map((note) => <div key={note.id}>{note.text}</div>))
+        notes.length > 0 && (notes.map((note) => (
+          <div className="mt-1">
+            <Note key={note.id} note={note} />
+          </div>
+        )))
       }
       {
         !hideActions && (

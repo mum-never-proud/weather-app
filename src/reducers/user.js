@@ -4,6 +4,7 @@ import {
   ADD_TO_FAVOURITES_REQUEST, ADD_TO_FAVOURITES_SUCCESS, ADD_TO_FAVOURITES_FAILURE,
   REMOVE_FROM_FAVOURITES_REQUEST, REMOVE_FROM_FAVOURITES_SUCCESS, REMOVE_FROM_FAVOURITES_FAILURE,
   REMOVE_FROM_DEFAULT_REQUEST, REMOVE_FROM_DEFAULT_SUCCESS, REMOVE_FROM_DEFAULT_FAILURE,
+  ADD_COMMENT_REQUEST, ADD_COMMENT_SUCCESS, ADD_COMMENT_FAILURE,
 } from '@action-types';
 
 export const userState = {
@@ -112,6 +113,24 @@ export default function weatherReducer(state = userState, action) {
       };
     }
     case REMOVE_FROM_DEFAULT_FAILURE:
+      return {
+        ...state,
+        isUpdatingStorage: false,
+      };
+    case ADD_COMMENT_REQUEST:
+      return {
+        ...state,
+        isUpdatingStorage: true,
+      };
+    case ADD_COMMENT_SUCCESS: {
+      return {
+        ...state,
+        isUpdatingStorage: false,
+        isAddCommentSuccess: true,
+        notes: state.notes.concat(action.payload),
+      };
+    }
+    case ADD_COMMENT_FAILURE:
       return {
         ...state,
         isUpdatingStorage: false,
