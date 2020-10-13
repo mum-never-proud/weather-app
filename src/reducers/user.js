@@ -3,6 +3,7 @@ import {
   FETCH_GEO_WEATHER_REQUEST, FETCH_GEO_WEATHER_SUCCESS, FETCH_GEO_WEATHER_FAILURE,
   ADD_TO_FAVOURITES_REQUEST, ADD_TO_FAVOURITES_SUCCESS, ADD_TO_FAVOURITES_FAILURE,
   REMOVE_FROM_FAVOURITES_REQUEST, REMOVE_FROM_FAVOURITES_SUCCESS, REMOVE_FROM_FAVOURITES_FAILURE,
+  REMOVE_FROM_DEFAULT_REQUEST, REMOVE_FROM_DEFAULT_SUCCESS, REMOVE_FROM_DEFAULT_FAILURE,
 } from '@action-types';
 
 export const userState = {
@@ -94,6 +95,23 @@ export default function weatherReducer(state = userState, action) {
       };
     }
     case REMOVE_FROM_FAVOURITES_FAILURE:
+      return {
+        ...state,
+        isUpdatingStorage: false,
+      };
+    case REMOVE_FROM_DEFAULT_REQUEST:
+      return {
+        ...state,
+        isUpdatingStorage: true,
+      };
+    case REMOVE_FROM_DEFAULT_SUCCESS: {
+      return {
+        ...state,
+        isUpdatingStorage: false,
+        defaultCities: state.defaultCities.filter((city) => city.id !== action.payload),
+      };
+    }
+    case REMOVE_FROM_DEFAULT_FAILURE:
       return {
         ...state,
         isUpdatingStorage: false,

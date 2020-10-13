@@ -3,6 +3,7 @@ import {
   fetchGeoWeatherRequest, fetchGeoWeatherSuccess, fetchGeoWeatherFailure,
   addToFavouritesRequest, addToFavouritesSuccess, addToFavouritesFailure,
   removeFromFavouritesRequest, removeFromFavouritesSuccess, removeFromFavouritesFailure,
+  removeFromDefaultRequest, removeFromDefaultSuccess, removeFromDefaultFailure,
 } from '@action-creators/user';
 import { fetchCurrentWeatherById, fetchCurrentWeatherByCoords } from '@services/weather';
 import accessLocation from '@services/location';
@@ -94,5 +95,22 @@ export const removeFromFavourites = (payload) => async (dispatch) => {
     dispatch(removeFromFavouritesSuccess(payload.id));
   } catch (ex) {
     dispatch(removeFromFavouritesFailure(ex.message));
+  }
+};
+
+export const removeFromDefault = (payload) => async (dispatch) => {
+  dispatch(removeFromDefaultRequest());
+
+  try {
+    const db = await dbInstance;
+    const defaultCities = db.table('default_cities');
+
+    defaultCities.deleteBy({ cityId: payload.id });
+
+    await db.commit(defaultCities);
+
+    dispatch(removeFromDefaultSuccess(payload.id));
+  } catch (ex) {
+    dispatch(removeFromDefaultFailure(ex.message));
   }
 };

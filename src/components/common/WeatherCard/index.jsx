@@ -1,6 +1,6 @@
 import { UserContext } from '@providers/User';
 import { FiXCircle, FiCloud, FiHeart } from 'react-icons/fi';
-import { addToFavourites, removeFromFavourites } from '@actions/user';
+import { addToFavourites, removeFromFavourites, removeFromDefault } from '@actions/user';
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import CommentForm from '@components/common/CommentForm';
@@ -15,7 +15,12 @@ const WeatherCard = ({
   return (
     <div className="p-15 weather-card">
       <div className="text-right">
-        {!hideActions && !isFavorite && <FiXCircle size={24} />}
+        {!hideActions && !isFavorite && (
+          <FiXCircle
+            size={24}
+            onClick={() => removeFromDefault(report)(dispatch)}
+          />
+        )}
       </div>
       <div>
         <p className="weather-card--location">
