@@ -1,13 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react';
+import PropTypes from 'prop-types';
 
 const MAX_CHARACTERS_ALLOWED = 140;
 
-const CommentForm = () => {
+const CommentForm = ({ onSubmit }) => {
   const commentRef = useRef();
   const [charactersLeft, setCharactersLeft] = useState(MAX_CHARACTERS_ALLOWED);
   const [comment, setComment] = useState('');
   const submitHandler = (e) => {
     e.preventDefault();
+    onSubmit(comment);
   };
 
   useEffect(() => {
@@ -35,10 +37,14 @@ const CommentForm = () => {
             <span className={`font-weight-bold ${charactersLeft < 0 ? 'text-danger' : ''}`}>{charactersLeft}</span>
           </small>
         </div>
-        <button type="submit" className="primary">Submit</button>
+        <button type="submit" className="primary" disabled={!comment || charactersLeft < 0}>Submit</button>
       </div>
     </form>
   );
+};
+
+CommentForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
 };
 
 export default CommentForm;

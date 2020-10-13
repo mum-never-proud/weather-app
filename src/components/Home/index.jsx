@@ -11,7 +11,7 @@ const Home = () => {
         favoriteCities.length > 0 && (
           <div className="mt-1">
             <p>Favorite Cities</p>
-            <WeatherGroup reports={favoriteCities} isFavorite />
+            <WeatherGroup reports={favoriteCities} />
           </div>
         )
       }

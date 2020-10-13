@@ -4,7 +4,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import WeatherCard from '@components/common/WeatherCard';
 
 const Forecast = () => {
-  const [{ defaultCities, favoriteCities }] = useContext(UserContext);
+  const [{ defaultCities, favoriteCities, notes }] = useContext(UserContext);
   const [report, setReport] = useState();
   const { cityID } = useParams();
 
@@ -15,7 +15,7 @@ const Forecast = () => {
   return (
     <div>
       {
-        report && <WeatherCard report={report} hideActions showComments />
+        report && <WeatherCard report={report} hideActions showComments notes={notes} />
       }
     </div>
   );

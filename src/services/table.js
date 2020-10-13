@@ -19,11 +19,7 @@ class Table {
       return this.update(data);
     }
 
-    const record = { ...data };
-
-    record.id = shortid.generate();
-    record.createdAt = Date.now();
-    record.updatedAt = null;
+    const record = Table.createRecord(data);
 
     this[table].push(record);
 
@@ -62,6 +58,10 @@ class Table {
   }
 
   findBy(constraints) {
+    if (Array.isArray(constraints)) {
+      return constraints.map((constraint) => this.findBy(constraint));
+    }
+
     const fields = Object.keys(constraints);
 
     return this[table].filter((record) => fields.every((key) => record[key] === constraints[key]));
@@ -98,6 +98,16 @@ class Table {
 
   toString() {
     return JSON.stringify(this[table]);
+  }
+
+  static createRecord(data) {
+    const record = { ...data };
+
+    record.id = shortid.generate();
+    record.createdAt = Date.now();
+    record.updatedAt = null;
+
+    return record;
   }
 }
 

@@ -1,17 +1,25 @@
 import { UserContext } from '@providers/User';
 import { FiXCircle, FiCloud, FiHeart } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
-import { addToFavourites, removeFromFavourites, removeFromDefault } from '@actions/user';
+import {
+  addToFavourites, removeFromFavourites, removeFromDefault,
+  addComment,
+} from '@actions/user';
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import CommentForm from '@components/common/CommentForm';
 import './style.scss';
 
 const WeatherCard = ({
-  report, showComments, isFavorite, hideActions,
+  report, showComments, notes, hideActions,
 }) => {
+  const {
+    isFavorite, id, main, name, sys, weather,
+  } = report;
   const [, dispatch] = useContext(UserContext);
-  const commentSubmitHandler = () => {};
+  const commentSubmitHandler = (comment) => {
+    addComment({ comment, id, isFavorite })(dispatch);
+  };
 
   return (
     <div className="p-15 weather-card">
@@ -25,13 +33,13 @@ const WeatherCard = ({
       </div>
       <div>
         <p className="weather-card--location">
-          {report.name}
+          {name}
           ,
           {' '}
-          {report.sys.country}
+          {sys.country}
         </p>
         <p>
-          <small>{report.weather[0].main}</small>
+          <small>{weather[0].main}</small>
         </p>
       </div>
       <div className="d-flex justify-content-between align-items-start">
@@ -41,18 +49,21 @@ const WeatherCard = ({
             Humidity
             {' '}
             <span className="font-weight-bold">
-              {report.main.humidity}
+              {main.humidity}
               %
             </span>
           </div>
         </div>
         <div className="weather-card--temp">
-          {report.main.temp}
+          {main.temp}
           <sup className="weather-card--unit">&deg;C</sup>
         </div>
       </div>
       {
         showComments && <CommentForm onSubmit={commentSubmitHandler} />
+      }
+      {
+        notes.length > 0 && (notes.map((note) => <div key={note.id}>{note.text}</div>))
       }
       {
         !hideActions && (
@@ -69,7 +80,7 @@ const WeatherCard = ({
       {
         !hideActions && (
           <div className="mt-1 text-center">
-            <Link to={`/info/${report.id}`}>
+            <Link to={`/info/${id}`}>
               More Info
             </Link>
           </div>
@@ -81,8 +92,8 @@ const WeatherCard = ({
 
 WeatherCard.defaultProps = {
   showComments: false,
-  isFavorite: false,
   hideActions: false,
+  notes: [],
 };
 WeatherCard.propTypes = {
   report: PropTypes.shape({
@@ -102,8 +113,9 @@ WeatherCard.propTypes = {
       pressure: PropTypes.number.isRequired,
       humidity: PropTypes.number.isRequired,
     }).isRequired,
+    isFavorite: PropTypes.bool,
   }).isRequired,
-  isFavorite: PropTypes.bool,
+  notes: PropTypes.arrayOf(PropTypes.object),
   showComments: PropTypes.bool,
   hideActions: PropTypes.bool,
 };

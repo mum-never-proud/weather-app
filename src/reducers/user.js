@@ -74,7 +74,7 @@ export default function weatherReducer(state = userState, action) {
         ...state,
         isUpdatingStorage: false,
         defaultCities,
-        favoriteCities: state.favoriteCities.concat(payload),
+        favoriteCities: state.favoriteCities.concat({ ...payload, isFavorite: true }),
       };
     }
     case ADD_TO_FAVOURITES_FAILURE:
