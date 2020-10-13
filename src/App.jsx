@@ -4,7 +4,7 @@ import {
 import { UserContext } from '@providers/User';
 import { fetchCurrentWeather } from '@actions/user';
 import React, { useContext, useEffect } from 'react';
-import Forecast from '@components/Forecast';
+import Info from '@components/Info';
 import Header from '@common/Header';
 import Home from '@components/Home';
 import dbInstance from '@services/db';
@@ -43,7 +43,7 @@ const App = () => {
         <Header />
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route path="/forecast/:place_id" component={Forecast} />
+          <Route path="/info/:cityID" component={Info} />
           <Route path="*">
             <Redirect to="/" />
           </Route>

@@ -1,5 +1,6 @@
 import { UserContext } from '@providers/User';
 import { FiXCircle, FiCloud, FiHeart } from 'react-icons/fi';
+import { Link } from 'react-router-dom';
 import { addToFavourites, removeFromFavourites, removeFromDefault } from '@actions/user';
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
@@ -65,6 +66,15 @@ const WeatherCard = ({
           </div>
         )
       }
+      {
+        !hideActions && (
+          <div className="mt-1 text-center">
+            <Link to={`/info/${report.id}`}>
+              More Info
+            </Link>
+          </div>
+        )
+      }
     </div>
   );
 };
@@ -76,6 +86,7 @@ WeatherCard.defaultProps = {
 };
 WeatherCard.propTypes = {
   report: PropTypes.shape({
+    id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     sys: PropTypes.shape({
       country: PropTypes.string.isRequired,

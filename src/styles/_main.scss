@@ -26,6 +26,15 @@ p {
   padding-bottom: 1em;
 }
 
+a, a:hover, a:focus, a:active {
+  color: $organza-violet;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
 .container {
   padding: 0 15px 15px;
 }
