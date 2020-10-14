@@ -14,6 +14,7 @@ const Header = () => {
   }, dispatch] = useContext(UserContext);
   const searchRef = useRef();
   const timeout = useRef();
+  const [isFocused, setIsFocused] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResult, setSearchResult] = useState([]);
 
@@ -52,14 +53,16 @@ const Header = () => {
             ref={searchRef}
             placeholder="Search for Locations"
             onChange={(e) => setSearchTerm(e.target.value)}
+            onFocus={() => setIsFocused(true)}
+            onBlur={() => window.setTimeout(() => setIsFocused(false), 250)}
           />
           {
-          searchResult.length > 0 && (
+          isFocused && searchResult.length > 0 && (
             <div className="header--search-result-wrapper position-absolute">
               <ul className="header--search-result list-style-none">
                 {searchResult.map((result) => (
                   <li className="p-15" key={result.id}>
-                    <Link to={`/info/${result.id}`} onClick={() => setSearchTerm('')}>
+                    <Link to={`/info/${result.id}`}>
                       {result.name}
                     </Link>
                   </li>

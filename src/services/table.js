@@ -96,6 +96,24 @@ class Table {
     return this[table].length;
   }
 
+  sort(customSort) {
+    const defaultSort = (record1, record2) => {
+      if (record1.createdAt < record2.createdAt) {
+        return 1;
+      }
+
+      if (record1.createdAt > record2.createdAt) {
+        return -1;
+      }
+
+      return 0;
+    };
+
+    this[table] = this[table].sort(typeof customSort === 'function' ? customSort : defaultSort);
+
+    return this;
+  }
+
   toString() {
     return JSON.stringify(this[table]);
   }

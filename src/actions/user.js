@@ -31,7 +31,7 @@ export const fetchCurrentWeather = (places) => async (dispatch) => {
     if (reports.cod) {
       dispatch(fetchWeatherFailure([reports.message]));
     } else {
-      const payload = { favoriteCities: [], defaultCities: [], notes: db.table('notes').findAll() };
+      const payload = { favoriteCities: [], defaultCities: [], notes: db.table('notes').sort().findAll() };
 
       reports.list.forEach((report) => {
         if (favoriteCitiesIds.includes(report.id)) {
@@ -128,7 +128,7 @@ export const addComment = (payload) => async (dispatch) => {
 
     await db.commit(notes);
 
-    dispatch(addCommentSuccess(notes.findAll()));
+    dispatch(addCommentSuccess(notes.sort().findAll()));
   } catch (ex) {
     dispatch(addCommentFailure([ex.message]));
   }
