@@ -1,8 +1,8 @@
 import {
   FETCH_WEATHER_REQUEST, FETCH_WEATHER_SUCCESS, FETCH_WEATHER_FAILURE,
   FETCH_GEO_WEATHER_REQUEST, FETCH_GEO_WEATHER_SUCCESS, FETCH_GEO_WEATHER_FAILURE,
-  ADD_TO_FAVOURITES_REQUEST, ADD_TO_FAVOURITES_SUCCESS, ADD_TO_FAVOURITES_FAILURE,
-  REMOVE_FROM_FAVOURITES_REQUEST, REMOVE_FROM_FAVOURITES_SUCCESS, REMOVE_FROM_FAVOURITES_FAILURE,
+  ADD_TO_FAVORITES_REQUEST, ADD_TO_FAVORITES_SUCCESS, ADD_TO_FAVORITES_FAILURE,
+  REMOVE_FROM_FAVORITES_REQUEST, REMOVE_FROM_FAVORITES_SUCCESS, REMOVE_FROM_FAVORITES_FAILURE,
   REMOVE_FROM_DEFAULT_REQUEST, REMOVE_FROM_DEFAULT_SUCCESS, REMOVE_FROM_DEFAULT_FAILURE,
   ADD_OR_UPDATE_COMMENT_REQUEST, ADD_OR_UPDATE_COMMENT_SUCCESS, ADD_OR_UPDATE_COMMENT_FAILURE,
   REMOVE_COMMENT_REQUEST, REMOVE_COMMENT_SUCCESS, REMOVE_COMMENT_FAILURE,
@@ -57,12 +57,12 @@ export default function weatherReducer(state = userState, action) {
         isFetchingGeoWeatherReport: false,
         geoWeatherError: action.payload,
       };
-    case ADD_TO_FAVOURITES_REQUEST:
+    case ADD_TO_FAVORITES_REQUEST:
       return {
         ...state,
         isUpdatingStorage: true,
       };
-    case ADD_TO_FAVOURITES_SUCCESS: {
+    case ADD_TO_FAVORITES_SUCCESS: {
       const { payload } = action;
       const weatherIndex = state.defaultCities.findIndex((report) => report.id === payload.id);
 
@@ -81,24 +81,24 @@ export default function weatherReducer(state = userState, action) {
         favoriteCities: state.favoriteCities.concat({ ...payload, isFavorite: true }),
       };
     }
-    case ADD_TO_FAVOURITES_FAILURE:
+    case ADD_TO_FAVORITES_FAILURE:
       return {
         ...state,
         isUpdatingStorage: false,
       };
-    case REMOVE_FROM_FAVOURITES_REQUEST:
+    case REMOVE_FROM_FAVORITES_REQUEST:
       return {
         ...state,
         isUpdatingStorage: true,
       };
-    case REMOVE_FROM_FAVOURITES_SUCCESS: {
+    case REMOVE_FROM_FAVORITES_SUCCESS: {
       return {
         ...state,
         isUpdatingStorage: false,
         favoriteCities: state.favoriteCities.filter((city) => city.id !== action.payload),
       };
     }
-    case REMOVE_FROM_FAVOURITES_FAILURE:
+    case REMOVE_FROM_FAVORITES_FAILURE:
       return {
         ...state,
         isUpdatingStorage: false,

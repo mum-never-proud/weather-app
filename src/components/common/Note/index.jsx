@@ -8,19 +8,23 @@ import './style.scss';
 dayjs.extend(relativeTime);
 
 const Note = ({ note, onEdit, onDelete }) => (
-  <div className="note p-15" data-testid="note">
+  <div className="note p-1" data-testid="note">
     <div className="note--actions text-right">
-      <AiOutlineEdit onClick={() => onEdit(note)} />
+      <button className="button rounded primary cursor-pointer" type="button" onClick={() => onEdit(note)}>
+        <AiOutlineEdit />
+      </button>
       {' '}
-      <AiOutlineDelete onClick={() => onDelete(note)} />
+      <button className="button rounded primary cursor-pointer" type="button" onClick={() => onDelete(note)}>
+        <AiOutlineDelete />
+      </button>
     </div>
     <div className="note--text" data-testid="note--text">
       {note.text || 'N/A'}
       {' '}
-      { note.updatedAt && (<small><i>(edited)</i></small>) }
+      { note.updatedAt && (<span className="note--edited">(edited)</span>) }
     </div>
     <div className="text-right">
-      <small><i>{dayjs(note.createdAt).fromNow()}</i></small>
+      <small className="note--timestamp"><i>{dayjs(note.createdAt).fromNow()}</i></small>
     </div>
   </div>
 );

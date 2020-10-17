@@ -1,7 +1,21 @@
-.mt-1 {
-  margin-top: 1em;
-}
+@for $i from 1 through 10 {
+  .m-#{$i} {
+    margin: #{$i}em;
+  }
 
-.mt-2 {
-  margin-top: 2em;
+  .mt-#{$i} {
+    margin-top: #{$i}em;
+  }
+
+  .mb-#{$i} {
+    margin-bottom: #{$i}em;
+  }
+
+  .ml-#{$i} {
+    margin-left: #{$i}em;
+  }
+
+  .mr-#{$i} {
+    margin-right: #{$i}em;
+  }
 }

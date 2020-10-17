@@ -1,8 +1,8 @@
 import {
   FETCH_WEATHER_REQUEST, FETCH_WEATHER_SUCCESS, FETCH_WEATHER_FAILURE,
   FETCH_GEO_WEATHER_REQUEST, FETCH_GEO_WEATHER_SUCCESS, FETCH_GEO_WEATHER_FAILURE,
-  ADD_TO_FAVOURITES_REQUEST, ADD_TO_FAVOURITES_SUCCESS, ADD_TO_FAVOURITES_FAILURE,
-  REMOVE_FROM_FAVOURITES_REQUEST, REMOVE_FROM_FAVOURITES_SUCCESS, REMOVE_FROM_FAVOURITES_FAILURE,
+  ADD_TO_FAVORITES_REQUEST, ADD_TO_FAVORITES_SUCCESS, ADD_TO_FAVORITES_FAILURE,
+  REMOVE_FROM_FAVORITES_REQUEST, REMOVE_FROM_FAVORITES_SUCCESS, REMOVE_FROM_FAVORITES_FAILURE,
   REMOVE_FROM_DEFAULT_REQUEST, REMOVE_FROM_DEFAULT_SUCCESS, REMOVE_FROM_DEFAULT_FAILURE,
   ADD_OR_UPDATE_COMMENT_REQUEST, ADD_OR_UPDATE_COMMENT_SUCCESS, ADD_OR_UPDATE_COMMENT_FAILURE,
   REMOVE_COMMENT_REQUEST, REMOVE_COMMENT_SUCCESS, REMOVE_COMMENT_FAILURE,
@@ -36,31 +36,31 @@ export const fetchGeoWeatherFailure = (payload) => ({
   payload,
 });
 
-export const addToFavouritesRequest = () => ({
-  type: ADD_TO_FAVOURITES_REQUEST,
+export const addToFavoritesRequest = () => ({
+  type: ADD_TO_FAVORITES_REQUEST,
 });
 
-export const addToFavouritesSuccess = (payload) => ({
-  type: ADD_TO_FAVOURITES_SUCCESS,
+export const addToFavoritesSuccess = (payload) => ({
+  type: ADD_TO_FAVORITES_SUCCESS,
   payload,
 });
 
-export const addToFavouritesFailure = (payload) => ({
-  type: ADD_TO_FAVOURITES_FAILURE,
+export const addToFavoritesFailure = (payload) => ({
+  type: ADD_TO_FAVORITES_FAILURE,
   payload,
 });
 
-export const removeFromFavouritesRequest = () => ({
-  type: REMOVE_FROM_FAVOURITES_REQUEST,
+export const removeFromFavoritesRequest = () => ({
+  type: REMOVE_FROM_FAVORITES_REQUEST,
 });
 
-export const removeFromFavouritesSuccess = (payload) => ({
-  type: REMOVE_FROM_FAVOURITES_SUCCESS,
+export const removeFromFavoritesSuccess = (payload) => ({
+  type: REMOVE_FROM_FAVORITES_SUCCESS,
   payload,
 });
 
-export const removeFromFavouritesFailure = (payload) => ({
-  type: REMOVE_FROM_FAVOURITES_FAILURE,
+export const removeFromFavoritesFailure = (payload) => ({
+  type: REMOVE_FROM_FAVORITES_FAILURE,
   payload,
 });
 

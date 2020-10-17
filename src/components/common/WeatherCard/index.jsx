@@ -2,7 +2,7 @@ import { UserContext } from '@providers/User';
 import { FiXCircle, FiHeart } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import {
-  addToFavourites, removeFromFavourites, removeFromDefault,
+  addToFavorites, removeFromFavorites, removeFromDefault,
   addComment, removeComment,
 } from '@actions/user';
 import React, { useContext, useState } from 'react';
@@ -13,7 +13,7 @@ import WeatherIcons from '@constants/weather-icons';
 import './style.scss';
 
 const WeatherCard = ({
-  report, showComments, notes, hideActions, hideFavourite,
+  report, showComments, notes, hideDelete, hideFavorite, hideNavigation,
 }) => {
   const {
     isFavorite, id, main, name, sys, weather,
@@ -28,10 +28,11 @@ const WeatherCard = ({
   const WeatherIcon = WeatherIcons[weather[0].icon.slice(0, 2)];
 
   return (
-    <div className="p-15 weather-card" data-testid="weather-card">
+    <div className="p-1 weather-card" data-testid="weather-card">
       <div className="text-right">
-        {!hideActions && !isFavorite && (
+        {!hideDelete && !isFavorite && (
           <FiXCircle
+            className="cursor-pointer"
             size={24}
             onClick={() => removeFromDefault(report)(dispatch)}
           />
@@ -86,20 +87,20 @@ const WeatherCard = ({
         )))
       }
       {
-        !hideFavourite && (
+        !hideFavorite && (
           <div className="mt-1 text-right">
             <FiHeart
               size={24}
-              className={`${isFavorite ? 'text-danger' : ''}`}
+              className={`cursor-pointer ${isFavorite ? 'text-danger' : ''}`}
               data-testid="favorite-icon"
               onClick={() => (isFavorite
-                ? removeFromFavourites(report)(dispatch) : addToFavourites(report)(dispatch))}
+                ? removeFromFavorites(report)(dispatch) : addToFavorites(report)(dispatch))}
             />
           </div>
         )
       }
       {
-        !hideActions && (
+        !hideNavigation && (
           <div className="mt-1 text-center">
             <Link to={`/info/${id}`}>
               More Info
@@ -113,8 +114,8 @@ const WeatherCard = ({
 
 WeatherCard.defaultProps = {
   showComments: false,
-  hideActions: false,
-  hideFavourite: false,
+  hideDelete: false,
+  hideFavorite: false,
   notes: [],
 };
 WeatherCard.propTypes = {
@@ -139,8 +140,8 @@ WeatherCard.propTypes = {
   }).isRequired,
   notes: PropTypes.arrayOf(PropTypes.object),
   showComments: PropTypes.bool,
-  hideActions: PropTypes.bool,
-  hideFavourite: PropTypes.bool,
+  hideDelete: PropTypes.bool,
+  hideFavorite: PropTypes.bool,
 };
 
 export default WeatherCard;

@@ -5,9 +5,11 @@ import './style.scss';
 
 const WeatherGroup = ({ reports }) => (
   <div className="weather-group">
-    {reports.map((report) => (
-      <WeatherCard key={report.id} report={report} />
-    ))}
+    {
+      reports.map((report) => (
+        <WeatherCard key={report.id} report={report} />
+      ))
+    }
   </div>
 );
 

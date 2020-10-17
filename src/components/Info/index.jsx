@@ -31,7 +31,9 @@ const Forecast = () => {
         report && (
         <WeatherCard
           report={report}
-          hideActions
+          hideDelete
+          hideFavorite
+          hideNavigation
           showComments
           notes={notes.filter((note) => note.reportId === +cityID)}
         />

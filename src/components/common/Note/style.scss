@@ -1,3 +1,7 @@
 .note {
   background: var(--black-bird);
 }
+
+.note--edited, .note--timestamp {
+  font-size: 10px;
+}

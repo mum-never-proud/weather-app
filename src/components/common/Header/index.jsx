@@ -61,7 +61,7 @@ const Header = () => {
               <div className="header--search-result-wrapper position-absolute">
                 <ul className="header--search-result list-style-none" data-testid="search-result">
                   {searchResult.map((result) => (
-                    <li className="p-15" key={result.id}>
+                    <li className="p-1" key={result.id}>
                       <Link to={`/info/${result.id}`}>
                         {result.name}
                       </Link>
@@ -78,7 +78,13 @@ const Header = () => {
           isFetchingGeoWeatherReport && <span data-testid="fetching-geo-weather">Fetching...</span>
         }
         {
-          currentLocationReport && <WeatherCard report={currentLocationReport} hideActions />
+          currentLocationReport && (
+            <WeatherCard
+              report={currentLocationReport}
+              hideDelete
+              hideFavorite
+            />
+          )
         }
         {
           geoWeatherError && <span className="font-weight-bold" data-testid="geo-weather-error">{geoWeatherError}</span>

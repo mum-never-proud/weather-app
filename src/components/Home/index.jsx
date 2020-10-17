@@ -17,7 +17,7 @@ const Home = () => {
         favoriteCities.length > 0
           ? (
             <div className="mt-1">
-              <div>Favorite Cities</div>
+              <h2 className="mb-1">Favorite Cities</h2>
               <WeatherGroup reports={favoriteCities} />
             </div>
           )
@@ -28,8 +28,8 @@ const Home = () => {
       {
         defaultCities.length > 0
           ? (
-            <div className="mt-1">
-              <p>Default Cities</p>
+            <div className="mt-3">
+              <h2 className="mb-1">Default Cities</h2>
               <WeatherGroup reports={defaultCities} />
             </div>
           )

@@ -1,8 +1,8 @@
 import {
   fetchWeatherRequest, fetchWeatherSuccess, fetchWeatherFailure,
   fetchGeoWeatherRequest, fetchGeoWeatherSuccess, fetchGeoWeatherFailure,
-  addToFavouritesRequest, addToFavouritesSuccess, addToFavouritesFailure,
-  removeFromFavouritesRequest, removeFromFavouritesSuccess, removeFromFavouritesFailure,
+  addToFavoritesRequest, addToFavoritesSuccess, addToFavoritesFailure,
+  removeFromFavoritesRequest, removeFromFavoritesSuccess, removeFromFavoritesFailure,
   removeFromDefaultRequest, removeFromDefaultSuccess, removeFromDefaultFailure,
   addOrUpdateCommentRequest, addOrUpdateCommentSuccess, addOrUpdateCommentFailure,
   removeCommentRequest, removeCommentSuccess, removeCommentFailure,
@@ -61,8 +61,8 @@ export const fetchCurrentLocationWeather = () => async (dispatch) => {
   }
 };
 
-export const addToFavourites = (payload) => async (dispatch) => {
-  dispatch(addToFavouritesRequest());
+export const addToFavorites = (payload) => async (dispatch) => {
+  dispatch(addToFavoritesRequest());
 
   try {
     const db = await dbInstance;
@@ -75,14 +75,14 @@ export const addToFavourites = (payload) => async (dispatch) => {
     await db.commit(favoriteCities);
     await db.commit(defaultCities);
 
-    dispatch(addToFavouritesSuccess(payload));
+    dispatch(addToFavoritesSuccess(payload));
   } catch (ex) {
-    dispatch(addToFavouritesFailure(ex.message));
+    dispatch(addToFavoritesFailure(ex.message));
   }
 };
 
-export const removeFromFavourites = (payload) => async (dispatch) => {
-  dispatch(removeFromFavouritesRequest());
+export const removeFromFavorites = (payload) => async (dispatch) => {
+  dispatch(removeFromFavoritesRequest());
 
   try {
     const db = await dbInstance;
@@ -92,9 +92,9 @@ export const removeFromFavourites = (payload) => async (dispatch) => {
 
     await db.commit(favoriteCities);
 
-    dispatch(removeFromFavouritesSuccess(payload.id));
+    dispatch(removeFromFavoritesSuccess(payload.id));
   } catch (ex) {
-    dispatch(removeFromFavouritesFailure(ex.message));
+    dispatch(removeFromFavoritesFailure(ex.message));
   }
 };
 

@@ -1,7 +1,21 @@
-.p-15 {
-  padding: 15px;
-}
+@for $i from 1 through 10 {
+  .p-#{$i} {
+    padding: #{$i}em;
+  }
 
-.p-1 {
-  padding: 1em;
+  .pt-#{$i} {
+    padding-top: #{$i}em;
+  }
+
+  .pb-#{$i} {
+    padding-bottom: #{$i}em;
+  }
+
+  .pl-#{$i} {
+    padding-left: #{$i}em;
+  }
+
+  .pr-#{$i} {
+    padding-right: #{$i}em;
+  }
 }
