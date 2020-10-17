@@ -4,7 +4,7 @@ import Home from '@/components/Home';
 import UserProvider from '@providers/User';
 import '@testing-library/jest-dom/extend-expect';
 
-describe('Weather App', () => {
+describe('Home', () => {
   it('should render Home', async () => {
     expect.hasAssertions();
 

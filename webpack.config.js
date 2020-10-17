@@ -1,5 +1,7 @@
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
+const WebpackAssetsManifest = require('webpack-assets-manifest');
 const dotenv = require('dotenv');
 const path = require('path');
 const webpack = require('webpack');
@@ -54,9 +56,17 @@ module.exports = (mode) => ({
     extensions: ['.js', '.jsx', '.scss', '.json'],
   },
   plugins: [
-    isProductionMode(mode) ? new CleanWebpackPlugin() : () => {},
+    new CleanWebpackPlugin(),
+    new WebpackAssetsManifest({
+      output: path.join(__dirname, 'dist/asset-manifest.json'),
+    }),
+    new CopyWebpackPlugin({
+      patterns: [
+        { from: path.join(__dirname, 'public'), to: path.join(__dirname, 'dist') },
+      ],
+    }),
     new HTMLWebpackPlugin({
-      template: path.resolve(__dirname, 'src', 'index.html'),
+      template: path.resolve(__dirname, 'public', 'index.html'),
     }),
     new webpack.DefinePlugin({ 'process.env': JSON.stringify(dotenv.config().parsed) }),
   ],

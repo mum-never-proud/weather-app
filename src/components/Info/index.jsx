@@ -4,7 +4,7 @@ import { fetchCurrentWeatherById } from '@services/weather';
 import React, { useContext, useEffect, useState } from 'react';
 import WeatherCard from '@components/common/WeatherCard';
 
-const Forecast = () => {
+const Info = () => {
   const [{ defaultCities, favoriteCities, notes }] = useContext(UserContext);
   const [report, setReport] = useState();
   const { cityID } = useParams();
@@ -26,21 +26,21 @@ const Forecast = () => {
   }, [cityID]);
 
   return (
-    <div>
+    <div data-testid="info">
       {
         report && (
-        <WeatherCard
-          report={report}
-          hideDelete
-          hideFavorite
-          hideNavigation
-          showComments
-          notes={notes.filter((note) => note.reportId === +cityID)}
-        />
+          <WeatherCard
+            report={report}
+            hideDelete
+            hideFavorite
+            hideNavigation
+            showComments
+            notes={notes.filter((note) => note.reportId === +cityID)}
+          />
         )
       }
     </div>
   );
 };
 
-export default Forecast;
+export default Info;

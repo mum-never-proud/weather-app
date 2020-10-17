@@ -1,0 +1,62 @@
+{
+  "short_name": "Weather App",
+  "name": "Weather App: Do I need an umbrella?",
+  "description": "Weather forecast information",
+  "icons": [
+    {
+      "src": "/images/weather-app.svg",
+      "type": "image/svg+xml",
+      "sizes": "512x512"
+    },
+    {
+      "src": "/images/weather-app.svg",
+      "type": "image/svg+xml",
+      "sizes": "384x384"
+    },
+    {
+      "src": "/images/weather-app.svg",
+      "type": "image/svg+xml",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/images/weather-app.svg",
+      "type": "image/svg+xml",
+      "sizes": "180x180"
+    },
+    {
+      "src": "/images/weather-app.svg",
+      "type": "image/svg+xml",
+      "sizes": "152x152"
+    },
+    {
+      "src": "/images/weather-app.svg",
+      "type": "image/svg+xml",
+      "sizes": "144x144"
+    },
+    {
+      "src": "/images/weather-app.svg",
+      "type": "image/svg+xml",
+      "sizes": "128x128"
+    },
+    {
+      "src": "/images/weather-app.svg",
+      "type": "image/svg+xml",
+      "sizes": "120x120"
+    },
+    {
+      "src": "/images/weather-app.svg",
+      "type": "image/svg+xml",
+      "sizes": "96x96"
+    },
+    {
+      "src": "/images/weather-app.svg",
+      "type": "image/svg+xml",
+      "sizes": "72x72"
+    }
+  ],
+  "start_url": "/?source=pwa",
+  "background_color": "#3367D6",
+  "display": "standalone",
+  "theme_color": "#3367D6",
+  "scope": "/"
+}

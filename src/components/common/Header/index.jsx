@@ -17,11 +17,15 @@ const Header = () => {
   const [isFocused, setIsFocused] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResult, setSearchResult] = useState([]);
+  const [isSearchDisabled, setIsSearchDisabled] = useState(!window.navigator.onLine);
 
   useEffect(() => {
     if (!currentLocationReport) {
       fetchCurrentLocationWeather()(dispatch);
     }
+
+    window.addEventListener('online', () => setIsSearchDisabled(false));
+    window.addEventListener('offline', () => setIsSearchDisabled(true));
 
     searchRef.current.focus();
   }, []);
@@ -44,6 +48,7 @@ const Header = () => {
 
   return (
     <div className="header p-1" data-testid="header">
+      Home
       <form className="d-flex align-items-center flex-col">
         <div className="search-place position-relative" data-testid="search-place">
           <input
@@ -51,6 +56,7 @@ const Header = () => {
             type="text"
             ref={searchRef}
             value={searchTerm}
+            disabled={isSearchDisabled}
             placeholder="Search for Locations"
             onChange={(e) => setSearchTerm(e.target.value)}
             onFocus={() => setIsFocused(true)}

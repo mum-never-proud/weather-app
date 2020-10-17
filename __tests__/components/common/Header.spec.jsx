@@ -25,9 +25,11 @@ describe('Header', () => {
     expect.hasAssertions();
 
     render(
-      <UserProvider>
-        <Header />
-      </UserProvider>,
+      <Router>
+        <UserProvider>
+          <Header />
+        </UserProvider>
+      </Router>,
     );
 
     await waitFor(() => {
@@ -40,9 +42,11 @@ describe('Header', () => {
     expect.assertions(1);
 
     render(
-      <UserProvider>
-        <Header />
-      </UserProvider>,
+      <Router>
+        <UserProvider>
+          <Header />
+        </UserProvider>
+      </Router>,
     );
 
     await waitFor(() => {
@@ -64,11 +68,38 @@ describe('Header', () => {
     fireEvent.change(input, { target: { value: 'berlin' } });
     fireEvent.focus(input);
 
-    expect(() => screen.getByTestId('search-result')).toThrowError();
+    jest.runAllTimers();
 
     await waitFor(() => {
       expect(input.value).toEqual('berlin');
       expect(screen.getByTestId('search-result')).toBeInTheDocument();
+    });
+  });
+
+  it('should show hide suggestions on blur', async () => {
+    render(
+      <Router>
+        <UserProvider>
+          <Header />
+        </UserProvider>
+      </Router>,
+    );
+
+    const input = screen.getByPlaceholderText(/search for locations/i);
+
+    fireEvent.change(input, { target: { value: 'berlin' } });
+    fireEvent.focus(input);
+
+    jest.runAllTimers();
+
+    await waitFor(() => {
+      expect(input.value).toEqual('berlin');
+      expect(screen.getByTestId('search-result')).toBeInTheDocument();
+
+      fireEvent.blur(input);
+      jest.runAllTimers();
+
+      expect(() => screen.getByTestId('search-result')).toThrowError();
     });
   });
 

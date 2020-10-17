@@ -116,6 +116,7 @@ WeatherCard.defaultProps = {
   showComments: false,
   hideDelete: false,
   hideFavorite: false,
+  hideNavigation: false,
   notes: [],
 };
 WeatherCard.propTypes = {
@@ -142,6 +143,7 @@ WeatherCard.propTypes = {
   showComments: PropTypes.bool,
   hideDelete: PropTypes.bool,
   hideFavorite: PropTypes.bool,
+  hideNavigation: PropTypes.bool,
 };
 
 export default WeatherCard;
