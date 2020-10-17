@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const MAX_CHARACTERS_ALLOWED = 140;
 
-const CommentForm = ({ note, onSubmit, isSubmitted }) => {
+const NoteForm = ({ note, onSubmit, isSubmitted }) => {
   const commentRef = useRef();
   const [charactersLeft, setCharactersLeft] = useState(MAX_CHARACTERS_ALLOWED);
   const [comment, setComment] = useState(note);
@@ -56,7 +56,7 @@ const CommentForm = ({ note, onSubmit, isSubmitted }) => {
   );
 };
 
-CommentForm.propTypes = {
+NoteForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   note: PropTypes.shape({
     text: PropTypes.string,
@@ -64,4 +64,4 @@ CommentForm.propTypes = {
   isSubmitted: PropTypes.bool.isRequired,
 };
 
-export default CommentForm;
+export default NoteForm;

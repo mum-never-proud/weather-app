@@ -104,24 +104,18 @@ describe('Header', () => {
   });
 
   it('should display error when location access is denied by the User', async () => {
-    const nativeNavigator = { ...global.navigator };
-    const navigator = jest.spyOn(global, 'navigator', 'get');
-
-    navigator.mockImplementation(() => ({
-      ...nativeNavigator,
-      geolocation: {
-        getCurrentPosition(_, reject) {
-          reject(Error('Location access denied by user'));
-        },
-      },
-    }));
-
     expect.assertions(2);
 
+    const geolocation = jest.spyOn(global.navigator.geolocation, 'getCurrentPosition');
+
+    geolocation.mockImplementationOnce((_, reject) => reject(Error('Location access denied by user')));
+
     render(
-      <UserProvider>
-        <Header />
-      </UserProvider>,
+      <Router>
+        <UserProvider>
+          <Header />
+        </UserProvider>
+      </Router>,
     );
 
     await waitFor(() => {

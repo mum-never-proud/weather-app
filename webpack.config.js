@@ -19,6 +19,7 @@ module.exports = (mode) => ({
   devtool: isProductionMode(mode) ? 'none' : 'source-map',
   devServer: isProductionMode(mode) ? {} : {
     historyApiFallback: true,
+    writeToDisk: true,
   },
   module: {
     rules: [

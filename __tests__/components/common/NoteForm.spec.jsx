@@ -1,9 +1,9 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
-import CommentForm from '@/components/common/CommentForm';
+import NoteForm from '@/components/common/NoteForm';
 import '@testing-library/jest-dom/extend-expect';
 
-describe('CommentForm', () => {
+describe('NoteForm', () => {
   const note = {
     text: 'Gibberish Note',
     createdAt: Date.now(),
@@ -16,10 +16,10 @@ describe('CommentForm', () => {
     jest.resetAllMocks();
   });
 
-  it('should render CommentForm', () => {
+  it('should render NoteForm', () => {
     expect.hasAssertions();
 
-    render(<CommentForm note={note} onSubmit={onSubmit} isSubmitted={isSubmitted} />);
+    render(<NoteForm note={note} onSubmit={onSubmit} isSubmitted={isSubmitted} />);
 
     expect(screen.getByTestId('weather-card-form')).toBeInTheDocument();
   });
@@ -27,7 +27,7 @@ describe('CommentForm', () => {
   it('should update characters left', () => {
     expect.hasAssertions();
 
-    render(<CommentForm note={note} onSubmit={onSubmit} isSubmitted={isSubmitted} />);
+    render(<NoteForm note={note} onSubmit={onSubmit} isSubmitted={isSubmitted} />);
 
     expect(screen.getByText(`${140 - note.text.length}`)).toBeInTheDocument();
   });
@@ -35,7 +35,7 @@ describe('CommentForm', () => {
   it('should call onSubmit callback', () => {
     expect.hasAssertions();
 
-    render(<CommentForm note={note} onSubmit={onSubmit} isSubmitted={isSubmitted} />);
+    render(<NoteForm note={note} onSubmit={onSubmit} isSubmitted={isSubmitted} />);
 
     fireEvent.click(screen.getByTestId('note-form-submit'));
 
@@ -45,7 +45,7 @@ describe('CommentForm', () => {
   it('should clear from on submit', () => {
     expect.hasAssertions();
 
-    render(<CommentForm note={note} onSubmit={onSubmit} isSubmitted />);
+    render(<NoteForm note={note} onSubmit={onSubmit} isSubmitted />);
 
     expect(screen.getByText('140')).toBeInTheDocument();
   });

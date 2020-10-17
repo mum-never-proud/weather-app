@@ -37,6 +37,11 @@ a:hover {
   text-decoration: underline;
 }
 
+a.primary, a.primary:hover, a.primary:focus, a.primary:active {
+  color: $cascading-white;
+  text-decoration: none;
+}
+
 .container {
   padding: 0 15px 15px;
 }

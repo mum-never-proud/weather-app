@@ -5,8 +5,6 @@
   "scripts": {
     "build": "webpack --env=production",
     "dev": "webpack-dev-server --env=development",
-    "dev-server": "netlify dev",
-    "dev-server-offline": "netlify dev -o",
     "deploy": "netlify deploy",
     "deploy-prod": "netlify deploy --prod",
     "css-lint": "stylelint './src/**/*.css'",

@@ -7,7 +7,7 @@ import {
 } from '@actions/user';
 import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
-import CommentForm from '@components/common/CommentForm';
+import NoteForm from '@components/common/NoteForm';
 import Note from '@components/common/Note';
 import WeatherIcons from '@constants/weather-icons';
 import './style.scss';
@@ -68,7 +68,7 @@ const WeatherCard = ({
       </div>
       {
         showComments && (
-        <CommentForm
+        <NoteForm
           isSubmitted={isUpdateCommentSuccessful}
           onSubmit={commentSubmitHandler}
           note={currentNote}

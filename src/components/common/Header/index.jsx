@@ -1,3 +1,4 @@
+import { AiOutlineHome } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import { UserContext } from '@providers/User';
 import { fetchCurrentLocationWeather } from '@actions/user';
@@ -47,8 +48,10 @@ const Header = () => {
   }, [searchTerm]);
 
   return (
-    <div className="header p-1" data-testid="header">
-      Home
+    <div className="header p-1 mb-3" data-testid="header">
+      <Link to="/" className="primary">
+        <AiOutlineHome size={36} />
+      </Link>
       <form className="d-flex align-items-center flex-col">
         <div className="search-place position-relative" data-testid="search-place">
           <input
@@ -79,7 +82,7 @@ const Header = () => {
           }
         </div>
       </form>
-      <div className="header--geo-report mt-1 d-flex justify-content-center">
+      <div className="header--geo-report mt-3 d-flex justify-content-center">
         {
           isFetchingGeoWeatherReport && <span data-testid="fetching-geo-weather">Fetching...</span>
         }
