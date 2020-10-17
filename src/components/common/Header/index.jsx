@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { UserContext } from '@providers/User';
 import { fetchCurrentLocationWeather } from '@actions/user';
-import { findPlace } from '@services/weather';
+import { queryPlace } from '@services/weather';
 import React, {
   useContext, useEffect, useRef, useState,
 } from 'react';
@@ -28,8 +28,7 @@ const Header = () => {
 
   useEffect(() => {
     const performSearch = async () => {
-      const res = await findPlace(searchTerm);
-      const place = await res.json();
+      const place = await queryPlace(searchTerm);
 
       setSearchResult(place.list);
     };
@@ -44,45 +43,46 @@ const Header = () => {
   }, [searchTerm]);
 
   return (
-    <div className="header p-1">
+    <div className="header p-1" data-testid="header">
       <form className="d-flex align-items-center flex-col">
-        <div className="search-place position-relative">
+        <div className="search-place position-relative" data-testid="search-place">
           <input
             className="p-1 form-control"
             type="text"
             ref={searchRef}
+            value={searchTerm}
             placeholder="Search for Locations"
             onChange={(e) => setSearchTerm(e.target.value)}
             onFocus={() => setIsFocused(true)}
             onBlur={() => window.setTimeout(() => setIsFocused(false), 250)}
           />
           {
-          isFocused && searchResult.length > 0 && (
-            <div className="header--search-result-wrapper position-absolute">
-              <ul className="header--search-result list-style-none">
-                {searchResult.map((result) => (
-                  <li className="p-15" key={result.id}>
-                    <Link to={`/info/${result.id}`}>
-                      {result.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )
-        }
+            isFocused && searchResult.length > 0 && (
+              <div className="header--search-result-wrapper position-absolute">
+                <ul className="header--search-result list-style-none" data-testid="search-result">
+                  {searchResult.map((result) => (
+                    <li className="p-15" key={result.id}>
+                      <Link to={`/info/${result.id}`}>
+                        {result.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )
+          }
         </div>
       </form>
-      <div className="header--geo-report mt-1">
+      <div className="header--geo-report mt-1 d-flex justify-content-center">
         {
-            isFetchingGeoWeatherReport && <span>Fetching...</span>
-          }
+          isFetchingGeoWeatherReport && <span data-testid="fetching-geo-weather">Fetching...</span>
+        }
         {
-            currentLocationReport && <WeatherCard report={currentLocationReport} hideActions />
-          }
+          currentLocationReport && <WeatherCard report={currentLocationReport} hideActions />
+        }
         {
-            geoWeatherError && <span className="font-weight-bold">{geoWeatherError}</span>
-          }
+          geoWeatherError && <span className="font-weight-bold" data-testid="geo-weather-error">{geoWeatherError}</span>
+        }
       </div>
     </div>
   );

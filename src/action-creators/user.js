@@ -1,10 +1,10 @@
 import {
-  FETCH_WEATHER_REQUEST, FETCH_WEATHER_SUCCESS, FETCH_CURRENT_FAILURE,
+  FETCH_WEATHER_REQUEST, FETCH_WEATHER_SUCCESS, FETCH_WEATHER_FAILURE,
   FETCH_GEO_WEATHER_REQUEST, FETCH_GEO_WEATHER_SUCCESS, FETCH_GEO_WEATHER_FAILURE,
   ADD_TO_FAVOURITES_REQUEST, ADD_TO_FAVOURITES_SUCCESS, ADD_TO_FAVOURITES_FAILURE,
   REMOVE_FROM_FAVOURITES_REQUEST, REMOVE_FROM_FAVOURITES_SUCCESS, REMOVE_FROM_FAVOURITES_FAILURE,
   REMOVE_FROM_DEFAULT_REQUEST, REMOVE_FROM_DEFAULT_SUCCESS, REMOVE_FROM_DEFAULT_FAILURE,
-  ADD_COMMENT_REQUEST, ADD_COMMENT_SUCCESS, ADD_COMMENT_FAILURE,
+  ADD_OR_UPDATE_COMMENT_REQUEST, ADD_OR_UPDATE_COMMENT_SUCCESS, ADD_OR_UPDATE_COMMENT_FAILURE,
   REMOVE_COMMENT_REQUEST, REMOVE_COMMENT_SUCCESS, REMOVE_COMMENT_FAILURE,
 } from '@action-types';
 
@@ -18,7 +18,7 @@ export const fetchWeatherSuccess = (payload) => ({
 });
 
 export const fetchWeatherFailure = (payload) => ({
-  type: FETCH_CURRENT_FAILURE,
+  type: FETCH_WEATHER_FAILURE,
   payload,
 });
 
@@ -78,17 +78,17 @@ export const removeFromDefaultFailure = (payload) => ({
   payload,
 });
 
-export const addCommentRequest = () => ({
-  type: ADD_COMMENT_REQUEST,
+export const addOrUpdateCommentRequest = () => ({
+  type: ADD_OR_UPDATE_COMMENT_REQUEST,
 });
 
-export const addCommentSuccess = (payload) => ({
-  type: ADD_COMMENT_SUCCESS,
+export const addOrUpdateCommentSuccess = (payload) => ({
+  type: ADD_OR_UPDATE_COMMENT_SUCCESS,
   payload,
 });
 
-export const addCommentFailure = (payload) => ({
-  type: ADD_COMMENT_FAILURE,
+export const addOrUpdateCommentFailure = (payload) => ({
+  type: ADD_OR_UPDATE_COMMENT_FAILURE,
   payload,
 });
 

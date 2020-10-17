@@ -1,14 +1,22 @@
-import { render } from '@testing-library/react';
+import { render, waitFor } from '@testing-library/react';
 import React from 'react';
 import App from '@/App';
+import UserProvider from '@providers/User';
 import '@testing-library/jest-dom/extend-expect';
 
 describe('Weather App', () => {
-  it('should load app', () => {
-    expect.assertions(1);
+  it('should render app', async () => {
+    expect.hasAssertions();
 
-    const { getByText } = render(<App />);
+    const { getByTestId } = render(
+      <UserProvider>
+        <App />
+      </UserProvider>,
+    );
 
-    expect(getByText('Weather App')).toBeInTheDocument();
+    await waitFor(() => {
+      expect(getByTestId('container')).toBeInTheDocument();
+      expect(getByTestId('header')).toBeInTheDocument();
+    });
   });
 });

@@ -1,5 +1,5 @@
 import { UserContext } from '@providers/User';
-import { FiXCircle, FiCloud, FiHeart } from 'react-icons/fi';
+import { FiXCircle, FiHeart } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import {
   addToFavourites, removeFromFavourites, removeFromDefault,
@@ -9,10 +9,11 @@ import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import CommentForm from '@components/common/CommentForm';
 import Note from '@components/common/Note';
+import WeatherIcons from '@constants/weather-icons';
 import './style.scss';
 
 const WeatherCard = ({
-  report, showComments, notes, hideActions,
+  report, showComments, notes, hideActions, hideFavourite,
 }) => {
   const {
     isFavorite, id, main, name, sys, weather,
@@ -24,9 +25,10 @@ const WeatherCard = ({
   };
   const commentEditHandler = (note) => setCurrentNote(note);
   const commentDeleteHandler = (comment) => removeComment({ comment })(dispatch);
+  const WeatherIcon = WeatherIcons[weather[0].icon.slice(0, 2)];
 
   return (
-    <div className="p-15 weather-card">
+    <div className="p-15 weather-card" data-testid="weather-card">
       <div className="text-right">
         {!hideActions && !isFavorite && (
           <FiXCircle
@@ -48,7 +50,7 @@ const WeatherCard = ({
       </div>
       <div className="d-flex justify-content-between align-items-start">
         <div>
-          <FiCloud size={128} />
+          <WeatherIcon size={128} />
           <div>
             Humidity
             {' '}
@@ -84,11 +86,12 @@ const WeatherCard = ({
         )))
       }
       {
-        !hideActions && (
+        !hideFavourite && (
           <div className="mt-1 text-right">
             <FiHeart
               size={24}
               className={`${isFavorite ? 'text-danger' : ''}`}
+              data-testid="favorite-icon"
               onClick={() => (isFavorite
                 ? removeFromFavourites(report)(dispatch) : addToFavourites(report)(dispatch))}
             />
@@ -111,6 +114,7 @@ const WeatherCard = ({
 WeatherCard.defaultProps = {
   showComments: false,
   hideActions: false,
+  hideFavourite: false,
   notes: [],
 };
 WeatherCard.propTypes = {
@@ -125,7 +129,7 @@ WeatherCard.propTypes = {
     weather: PropTypes.arrayOf(PropTypes.object).isRequired,
     main: PropTypes.shape({
       temp: PropTypes.number.isRequired,
-      feels_like: PropTypes.number.isRequired,
+      feels_like: PropTypes.number,
       temp_min: PropTypes.number.isRequired,
       temp_max: PropTypes.number.isRequired,
       pressure: PropTypes.number.isRequired,
@@ -136,6 +140,7 @@ WeatherCard.propTypes = {
   notes: PropTypes.arrayOf(PropTypes.object),
   showComments: PropTypes.bool,
   hideActions: PropTypes.bool,
+  hideFavourite: PropTypes.bool,
 };
 
 export default WeatherCard;

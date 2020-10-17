@@ -4,7 +4,7 @@ import {
   addToFavouritesRequest, addToFavouritesSuccess, addToFavouritesFailure,
   removeFromFavouritesRequest, removeFromFavouritesSuccess, removeFromFavouritesFailure,
   removeFromDefaultRequest, removeFromDefaultSuccess, removeFromDefaultFailure,
-  addCommentRequest, addCommentSuccess, addCommentFailure,
+  addOrUpdateCommentRequest, addOrUpdateCommentSuccess, addOrUpdateCommentFailure,
   removeCommentRequest, removeCommentSuccess, removeCommentFailure,
 } from '@action-creators/user';
 import { fetchCurrentWeatherById, fetchCurrentWeatherByCoords } from '@services/weather';
@@ -25,8 +25,7 @@ export const fetchCurrentWeather = (places) => async (dispatch) => {
       return;
     }
 
-    const res = await fetchCurrentWeatherById(cityIds);
-    const reports = await res.json();
+    const reports = await fetchCurrentWeatherById(cityIds);
 
     if (reports.cod) {
       dispatch(fetchWeatherFailure([reports.message]));
@@ -54,12 +53,11 @@ export const fetchCurrentLocationWeather = () => async (dispatch) => {
   try {
     const location = await accessLocation();
     const { coords } = location;
-    const res = await fetchCurrentWeatherByCoords(coords.latitude, coords.longitude);
-    const report = await res.json();
+    const report = await fetchCurrentWeatherByCoords(coords.latitude, coords.longitude);
 
     dispatch(fetchGeoWeatherSuccess(report));
   } catch (ex) {
-    dispatch(fetchGeoWeatherFailure(ex.message));
+    dispatch(fetchGeoWeatherFailure([ex.message]));
   }
 };
 
@@ -118,7 +116,7 @@ export const removeFromDefault = (payload) => async (dispatch) => {
 };
 
 export const addComment = (payload) => async (dispatch) => {
-  dispatch(addCommentRequest());
+  dispatch(addOrUpdateCommentRequest());
 
   try {
     const db = await dbInstance;
@@ -128,9 +126,9 @@ export const addComment = (payload) => async (dispatch) => {
 
     await db.commit(notes);
 
-    dispatch(addCommentSuccess(notes.sort().findAll()));
+    dispatch(addOrUpdateCommentSuccess(notes.sort().findAll()));
   } catch (ex) {
-    dispatch(addCommentFailure([ex.message]));
+    dispatch(addOrUpdateCommentFailure([ex.message]));
   }
 };
 

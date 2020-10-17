@@ -7,7 +7,9 @@
     "dev": "webpack-dev-server --env=development",
     "css-lint": "stylelint './src/**/*.css'",
     "js-lint": "eslint './src/**' --ext .js --ext .jsx",
-    "test": "jest"
+    "test": "jest",
+    "test-coverage": "jest --coverage",
+    "test-server": "jest --watch"
   },
   "repository": {
     "type": "git",
@@ -73,5 +75,12 @@
     "react-icons": "3.11.0",
     "react-router-dom": "5.2.0",
     "shortid": "2.2.15"
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "\\./styles": "<rootDir>/__mocks__/style.js",
+      "\\.s?css$": "<rootDir>/__mocks__/style.js"
+    },
+    "setupFiles": ["<rootDir>/__mocks__/geolocation.js"]
   }
 }

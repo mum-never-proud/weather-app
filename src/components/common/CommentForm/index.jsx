@@ -33,12 +33,13 @@ const CommentForm = ({ note, onSubmit, isSubmitted }) => {
   }, [comment]);
 
   return (
-    <form className="weather-card--form mt-2" onSubmit={submitHandler}>
+    <form className="weather-card-form mt-2" onSubmit={submitHandler} data-testid="weather-card-form">
       <textarea
         className="form-control resize-none p-1"
         value={comment.text}
         rows={3}
         ref={commentRef}
+        data-testid="comment"
         onChange={(e) => setComment({ ...comment, text: e.target.value })}
       />
       <div className="mt-1 d-flex justify-content-between">
@@ -49,7 +50,7 @@ const CommentForm = ({ note, onSubmit, isSubmitted }) => {
             <span className={`font-weight-bold ${charactersLeft < 0 ? 'text-danger' : ''}`}>{charactersLeft}</span>
           </small>
         </div>
-        <button type="submit" className="primary" disabled={charactersLeft === 140 || charactersLeft < 0}>Submit</button>
+        <button type="submit" className="primary" data-testid="note-form-submit" disabled={charactersLeft === 140 || charactersLeft < 0}>Submit</button>
       </div>
     </form>
   );

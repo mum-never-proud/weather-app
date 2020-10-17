@@ -1,10 +1,10 @@
 import {
-  FETCH_WEATHER_REQUEST, FETCH_WEATHER_SUCCESS, FETCH_CURRENT_FAILURE,
+  FETCH_WEATHER_REQUEST, FETCH_WEATHER_SUCCESS, FETCH_WEATHER_FAILURE,
   FETCH_GEO_WEATHER_REQUEST, FETCH_GEO_WEATHER_SUCCESS, FETCH_GEO_WEATHER_FAILURE,
   ADD_TO_FAVOURITES_REQUEST, ADD_TO_FAVOURITES_SUCCESS, ADD_TO_FAVOURITES_FAILURE,
   REMOVE_FROM_FAVOURITES_REQUEST, REMOVE_FROM_FAVOURITES_SUCCESS, REMOVE_FROM_FAVOURITES_FAILURE,
   REMOVE_FROM_DEFAULT_REQUEST, REMOVE_FROM_DEFAULT_SUCCESS, REMOVE_FROM_DEFAULT_FAILURE,
-  ADD_COMMENT_REQUEST, ADD_COMMENT_SUCCESS, ADD_COMMENT_FAILURE,
+  ADD_OR_UPDATE_COMMENT_REQUEST, ADD_OR_UPDATE_COMMENT_SUCCESS, ADD_OR_UPDATE_COMMENT_FAILURE,
   REMOVE_COMMENT_REQUEST, REMOVE_COMMENT_SUCCESS, REMOVE_COMMENT_FAILURE,
 } from '@action-types';
 
@@ -34,7 +34,7 @@ export default function weatherReducer(state = userState, action) {
         isFetchingWeatherReport: false,
         ...action.payload,
       };
-    case FETCH_CURRENT_FAILURE:
+    case FETCH_WEATHER_FAILURE:
       return {
         ...state,
         isFetchingWeatherReport: false,
@@ -120,14 +120,14 @@ export default function weatherReducer(state = userState, action) {
         ...state,
         isUpdatingStorage: false,
       };
-    case ADD_COMMENT_REQUEST:
+    case ADD_OR_UPDATE_COMMENT_REQUEST:
     case REMOVE_COMMENT_REQUEST:
       return {
         ...state,
         isUpdateCommentSuccessful: false,
         isUpdatingStorage: true,
       };
-    case ADD_COMMENT_SUCCESS:
+    case ADD_OR_UPDATE_COMMENT_SUCCESS:
     case REMOVE_COMMENT_SUCCESS:
     {
       return {
@@ -137,7 +137,7 @@ export default function weatherReducer(state = userState, action) {
         notes: action.payload,
       };
     }
-    case ADD_COMMENT_FAILURE:
+    case ADD_OR_UPDATE_COMMENT_FAILURE:
     case REMOVE_COMMENT_FAILURE:
       return {
         ...state,

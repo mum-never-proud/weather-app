@@ -1,6 +1,11 @@
 import shortid from 'shortid';
 
 const table = Symbol('table');
+const assertData = (data) => {
+  if (data === null || data === undefined) {
+    throw Error('data should not be null or undefined');
+  }
+};
 
 class Table {
   constructor(name, tableInstance) {
@@ -10,12 +15,14 @@ class Table {
     return this;
   }
 
-  insert(data) {
+  insert(data, force = false) {
+    assertData(data);
+
     if (Array.isArray(data)) {
       return data.map((datum) => this.insert(datum));
     }
 
-    if (data.id) {
+    if (data.id && !force) {
       return this.update(data);
     }
 
@@ -27,6 +34,8 @@ class Table {
   }
 
   update(data) {
+    assertData(data);
+
     if (!data.id) {
       return this.insert(data);
     }
@@ -35,7 +44,7 @@ class Table {
     const recordIndex = this[table].findIndex((record) => record.id === updatedRecord.id);
 
     if (recordIndex === -1) {
-      return this.insert(updatedRecord);
+      return this.insert(updatedRecord, true);
     }
 
     updatedRecord.updatedAt = Date.now();
@@ -72,7 +81,7 @@ class Table {
   }
 
   delete(index) {
-    delete this[table][index];
+    this[table].splice(index, 1);
 
     return this;
   }
@@ -87,7 +96,7 @@ class Table {
   }
 
   deleteAll() {
-    this[table].length = 0;
+    this[table] = [];
 
     return this;
   }

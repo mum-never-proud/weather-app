@@ -8,14 +8,14 @@ import './style.scss';
 dayjs.extend(relativeTime);
 
 const Note = ({ note, onEdit, onDelete }) => (
-  <div className="note p-15">
+  <div className="note p-15" data-testid="note">
     <div className="note--actions text-right">
       <AiOutlineEdit onClick={() => onEdit(note)} />
       {' '}
       <AiOutlineDelete onClick={() => onDelete(note)} />
     </div>
-    <div className="note--text">
-      {note.text}
+    <div className="note--text" data-testid="note--text">
+      {note.text || 'N/A'}
       {' '}
       { note.updatedAt && (<small><i>(edited)</i></small>) }
     </div>

@@ -10,14 +10,13 @@ const Forecast = () => {
   const { cityID } = useParams();
 
   useEffect(() => {
-    const _report = defaultCities.concat(favoriteCities).find((city) => +city.id === +cityID);
+    const cachedReport = defaultCities.concat(favoriteCities).find((city) => +city.id === +cityID);
 
-    if (_report) {
-      setReport(_report);
+    if (cachedReport) {
+      setReport(cachedReport);
     } else {
       const fetchReport = async () => {
-        const res = await fetchCurrentWeatherById(cityID);
-        const rep = await res.json();
+        const rep = await fetchCurrentWeatherById(cityID);
 
         setReport(rep);
       };
